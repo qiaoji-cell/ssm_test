@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axjy.mapper.base.DepMapper">
+  <select id="findByParentId" resultType="java.lang.Integer">
+    select count(0) from kms_dep where parent_id = #{depId}
+  </select>
+
+  <select id="findByName" resultType="com.axjy.pojo.sys.Dep">
+    select * from kms_dep where dep_name = #{name}
+                            <if test="depId!=null">
+                              and id != #{depId}
+                            </if>  and id in(
+      select dep_id from kms_dep_garden where garden_id =#{gardenId}
+      )
+  </select>
+
+  <select id="findByCode" resultType="com.axjy.pojo.sys.Dep">
+    select * from kms_dep where dep_code = #{code}
+                      <if test="depId!=null">
+                        and id != #{depId}
+                      </if> and id in(
+      select dep_id from kms_dep_garden where garden_id =#{gardenId}
+      )
+  </select>
+
+  <select id="findAll" resultType="com.axjy.pojo.sys.Dep">
+    select * from kms_dep where  id in (
+    select dep_id from kms_dep_garden <if test="gardenId!=null">where garden_id =#{gardenId}</if>
+      )
+  </select>
+  <resultMap id="BaseResultMap" type="com.axjy.pojo.sys.Dep">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="dep_code" jdbcType="VARCHAR" property="depCode" />
+    <result column="dep_name" jdbcType="VARCHAR" property="depName" />
+    <result column="dep_principal" jdbcType="VARCHAR" property="depPrincipal" />
+    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+    <result column="dep_fax" jdbcType="VARCHAR" property="depFax" />
+    <result column="dep_phone" jdbcType="VARCHAR" property="depPhone" />
+    <result column="dep_type" jdbcType="BOOLEAN" property="depType" />
+    <result column="dep_remark" jdbcType="VARCHAR" property="depRemark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, dep_code, dep_name, dep_principal, parent_id, dep_fax, dep_phone, dep_type, dep_remark, 
+    garden_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from kms_dep
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from kms_dep
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.sys.Dep" useGeneratedKeys="true">
+    insert into kms_dep (dep_code, dep_name, dep_principal, 
+      parent_id, dep_fax, dep_phone, 
+      dep_type, dep_remark
+      )
+    values (#{depCode,jdbcType=VARCHAR}, #{depName,jdbcType=VARCHAR}, #{depPrincipal,jdbcType=VARCHAR}, 
+      #{parentId,jdbcType=BIGINT}, #{depFax,jdbcType=VARCHAR}, #{depPhone,jdbcType=VARCHAR}, 
+      #{depType,jdbcType=BOOLEAN}, #{depRemark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="record.id" parameterType="com.axjy.pojo.sys.Dep" useGeneratedKeys="true">
+    insert into kms_dep
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="record.depCode != null">
+        dep_code,
+      </if>
+      <if test="record.depName != null">
+        dep_name,
+      </if>
+      <if test="record.depPrincipal != null">
+        dep_principal,
+      </if>
+      <if test="record.parentId != null">
+        parent_id,
+      </if>
+      <if test="record.depFax != null">
+        dep_fax,
+      </if>
+      <if test="record.depPhone != null">
+        dep_phone,
+      </if>
+      <if test="record.depType != null">
+        dep_type,
+      </if>
+      <if test="record.depRemark != null">
+        dep_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="record.depCode != null">
+        #{record.depCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.depName != null">
+        #{record.depName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.depPrincipal != null">
+        #{record.depPrincipal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentId != null">
+        #{record.parentId,jdbcType=BIGINT},
+      </if>
+      <if test="record.depFax != null">
+        #{record.depFax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.depPhone != null">
+        #{record.depPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.depType != null">
+        #{record.depType,jdbcType=BOOLEAN},
+      </if>
+      <if test="record.depRemark != null">
+        #{record.depRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.axjy.pojo.sys.Dep">
+    update kms_dep
+    <set>
+      <if test="depCode != null">
+        dep_code = #{depCode,jdbcType=VARCHAR},
+      </if>
+      <if test="depName != null">
+        dep_name = #{depName,jdbcType=VARCHAR},
+      </if>
+      <if test="depPrincipal != null">
+        dep_principal = #{depPrincipal,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="depFax != null">
+        dep_fax = #{depFax,jdbcType=VARCHAR},
+      </if>
+      <if test="depPhone != null">
+        dep_phone = #{depPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="depType != null">
+        dep_type = #{depType,jdbcType=BOOLEAN},
+      </if>
+      <if test="depRemark != null">
+        dep_remark = #{depRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.axjy.pojo.sys.Dep">
+    update kms_dep
+    set dep_code = #{depCode,jdbcType=VARCHAR},
+      dep_name = #{depName,jdbcType=VARCHAR},
+      dep_principal = #{depPrincipal,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=BIGINT},
+      dep_fax = #{depFax,jdbcType=VARCHAR},
+      dep_phone = #{depPhone,jdbcType=VARCHAR},
+      dep_type = #{depType,jdbcType=BOOLEAN},
+      dep_remark = #{depRemark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

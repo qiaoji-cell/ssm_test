@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axjy.mapper.reruit.StudentMapper">
+
+
+  <select id="findAllReturn" resultType="com.axjy.pojo.recruit.Student">
+    select student.*,grade.gradeName,garden.garden_name from kms_student as student
+    left JOIN kms_grade as grade on student.grade_id = grade.id
+    left JOIN kms_garden as garden on garden.id = student.garden_id
+    <where>
+      <if test="student.studentCode!=null and student.studentCode!=''">
+        student_code=#{student.studentCode}
+      </if>
+      <if test="student.studentname!=null and student.studentname!=''">
+        and studentName=#{student.studentname}
+      </if>
+      <if test="student.setclassParents!=null and student.setclassParents!=''">
+        and setClass_parents = #{student.setclassParents}
+      </if>
+      <if test="student.phone!=null and student.phone!=''">
+        and phone = #{student.phone}
+      </if>
+      <if test="student.setclassTeacher!=null and student.setclassTeacher!=''">
+        and setClass_teacher = #{student.setclassTeacher}
+      </if>
+      <if test="student.setClassTicketNo!=null and student.setClassTicketNo!=''">
+        and setClass_ticketNo = #{student.setClassTicketNo}
+      </if>
+      <if test="student.remark!=null and student.remark!=''">
+        and remark = #{student.remark}
+      </if>
+      <if test="student.isreturn!=null">
+        and isReturn = #{student.isreturn}
+      </if>
+      <if test="student.returnType!=null and student.returnType>0">
+        and returnType = #{student.returnType}
+      </if>
+      <if test="student.returnWay!=null and student.returnWay>0">
+        and returnWay = #{student.returnWay}
+      </if>
+      <if test="student.chargeType!=null and student.chargeType!=''">
+        and chargeType = #{student.chargeType}
+      </if>
+      <if test="student.gradeId!=null ">
+        and grade_id = #{student.gradeId}
+      </if>
+
+      <if test="student.intoKindergarten!=null">
+        and into_kindergarten = #{student.intoKindergarten}
+      </if>
+      <if test="returnVo.startWillIntoDate!=null">
+        and will_into_date >= #{returnVo.startWillIntoDate}
+      </if>
+      <if test="returnVo.startWillIntoDate != null ">
+        and will_into_date >= #{returnVo.startWillIntoDate}
+      </if>
+
+      <if test="returnVo.endWillIntoDate != null ">
+        and setClass_date &lt;= #{returnVo.endWillIntoDate}
+      </if>
+      <if test="returnVo.startSetClassDate != null ">
+        and setClass_date >= #{returnVo.startSetClassDate}
+      </if>
+      <if test="returnVo.endSetClassDate != null ">
+        and setClass_date &lt;= #{returnVo.endSetClassDate}
+      </if>
+
+      <if test="returnVo.startReturnDate != null ">
+        and returnDate >= #{returnVo.startReturnDate}
+      </if>
+      <if test="returnVo.endReturnDate != null ">
+        and returnDate &lt;= #{returnVo.endReturnDate}
+      </if>
+      <if test="student.gardenName!=null and student.gardenName!=''">
+        and garden_name = #{student.gardenName}
+      </if>
+      and student.garden_id = #{returnVo.gardenId}
+    </where>
+
+  </select>
+
+
+
+  <select id="findAllInput" resultType="com.axjy.pojo.recruit.Student">
+    select student.*,grade.gradeName gradeName,garden.garden_name garden_name from kms_student as student
+    left JOIN kms_grade as grade on student.grade_id = grade.id
+    left JOIN kms_garden as garden on garden.id = student.garden_id
+    <where>
+      <if test="student.studentCode!=null and student.studentCode!=''">
+        and student_Code=#{student.studentCode}
+      </if>
+      <if test="student.studentname!=null and student.studentname!=''">
+        and studentName=#{student.studentname}
+      </if>
+      <if test="student.setclassParents!=null and student.setclassParents!=''">
+        and setClass_parents = #{student.setclassParents}
+      </if>
+      <if test="student.phone!=null and student.phone!=''">
+        and phone = #{student.phone}
+      </if>
+      <if test="student.setclassTeacher!=null and student.setclassTeacher!=''">
+        and setClass_teacher = #{student.setclassTeacher}
+      </if>
+      <if test="student.setclassTicketno!=null and student.setclassTicketno!=''">
+        and setClass_ticketno = #{student.setclassTicketno}
+      </if>
+      <if test="student.intoKindergarten!=null">
+        and into_kindergarten = #{student.intoKindergarten}
+      </if>
+      <if test="student.isreturn!=null">
+        and isReturn = #{student.isreturn}
+      </if>
+      <if test="student.remark!=null and student.remark!=''">
+        and remark = #{student.remark}
+      </if>
+      <if test="student.gradeId!=null">
+        and grade_id = #{student.gradeId}
+      </if>
+
+      <if test="kmsStudentVo.willIntoDateStart != null ">
+        and will_into_date >= #{kmsStudentVo.willIntoDateStart}
+      </if>
+      <if test="kmsStudentVo.willIntoDateEnd != null ">
+        and will_into_date &lt;= #{kmsStudentVo.willIntoDateEnd}
+      </if>
+
+      <if test="kmsStudentVo.setclassDateStart != null">
+        and setClass_date >= #{kmsStudentVo.setclassDateStart}
+      </if>
+      <if test="kmsStudentVo.setclassDateEnd != null ">
+        and setClass_date &lt;= #{kmsStudentVo.setclassDateEnd}
+      </if>
+      <if test="student.gardenName!=null and student.gardenName!=''">
+        and garden_name = #{student.gardenName}
+      </if>
+      and student.garden_id = #{kmsStudentVo.gardenId}
+    </where>
+
+  </select>
+
+
+
+
+
+
+
+
+
+
+
+  <resultMap id="kmsRm" type="com.axjy.pojo.recruit.Student">
+    <id column="id" property="id"></id>
+    <association property="grade">
+      <id property="id" column="gradeId"></id>
+      <result property="gradename" column="gradeName"></result>
+    </association>
+  </resultMap>
+
+  <select id="findAll" resultMap="kmsRm">
+    select s.*,g.id as gradeId,g.gradeName as gradeName from kms_student s left join kms_grade g on s.grade_id = g.id
+    <where>
+      <if test="student.studentCode!=null and student.studentCode!=''">
+        and student_Code=#{student.studentCode}
+      </if>
+      <if test="student.studentname != null and student.studentname !=''">
+        and studentName = #{student.studentname}
+      </if>
+      <if test="student.setclassParents!=null and student.setclassParents!=''">
+        and setClass_parents = #{student.setclassParents}
+      </if>
+      <if test="student.phone != null and student.phone !=''">
+        and phone = #{student.phone}
+      </if>
+      <if test="student.setclassTeacher != null and student.setclassTeacher != ''">
+        and setClass_teacher = #{student.setclassTeacher}
+      </if>
+      <if test="student.setclassTicketno != null and student.setclassTicketno != ''">
+        and setClass_ticketNo = #{student.setclassTicketno}
+      </if>
+      <if test="student.chargetype != null and student.chargetype != ''">
+        and chargeType = #{student.chargetype}
+      </if>
+      <if test="student.remark != null and student.remark != ''">
+        and remark = #{student.remark}
+      </if>
+      <if test="student.isreturn != null">
+        and isReturn = #{student.isreturn}
+      </if>
+      <if test="student.returntype != null and student.returntype > 0">
+        and returnType = #{student.returntype}
+      </if>
+      <if test="student.returnway != null and student.returnway > 0">
+        and returnWay = #{student.returnway}
+      </if>
+
+      <if test="student.gradeId != null and student.gradeId > 0">
+        and grade_id = #{student.gradeId}
+      </if>
+
+      <if test="student.intoKindergarten != null">
+        and into_kindergarten = #{student.intoKindergarten}
+      </if>
+      <if test="student.createdBy != null and student.createdBy != ''">
+        and created_by = #{student.createdBy}
+      </if>
+      <if test="countVo.willIntoDateStart != null">
+        and will_into_date >= #{countVo.willIntoDateStart}
+      </if>
+      <if test="countVo.willIntoDateEnd != null">
+        and will_into_date &lt;= #{countVo.willIntoDateEnd}
+      </if>
+      <if test="countVo.returnDateStart != null">
+        and will_into_date >= #{countVo.returnDateStart}
+      </if>
+      <if test="countVo.returnDateEnd != null">
+        and will_into_date &lt;= #{countVo.returnDateEnd}
+      </if>
+      <if test="countVo.setclassDateStart != null">
+        and setClass_date >= #{countVo.setclassDateStart}
+      </if>
+      <if test="countVo.setclassDateEnd != null">
+        and setClass_date &lt;= #{countVo.setclassDateEnd}
+      </if>
+      and s.garden_id = #{countVo.gardenId}
+      and isReturn = 0
+
+    </where>
+
+  </select>
+
+  <!--  招生统计里的人数总和-->
+  <select id="zrs" resultType="java.lang.Integer">
+    select  count(*) from kms_student where garden_id = #{student.gardenId}
+  </select>
+  <!--招生统计里的金额总和-->
+  <select id="zonghe" resultType="java.lang.Integer">
+    select sum(chargeAmount) from kms_student where garden_id = #{student.gardenId}
+  </select>
+  <!--招生统计里的已退费总和-->
+  <select id="tuifeizonghe" resultType="java.lang.Integer">
+    select count(*) from kms_student where returnType =1 and garden_id = #{student.gardenId}
+  </select>
+  <!--招生统计里的入园人数-->
+  <select id="ruyuan" resultType="java.lang.Integer">
+    select count(*) from kms_student where into_kindergarten = 0 and garden_id = #{student.gardenId}
+  </select>
+  <!--  招生统计里的未退费-->
+  <select id="weituifei" resultType="java.lang.Integer">
+    select count(*) from kms_student where isReturn = 1 and garden_id = #{student.gardenId}
+  </select>
+
+
+
+  <resultMap id="BaseResultMap" type="com.axjy.pojo.recruit.Student">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="studentName" jdbcType="VARCHAR" property="studentname" />
+    <result column="student_code" jdbcType="VARCHAR" property="studentCode" />
+    <result column="gender" jdbcType="INTEGER" property="gender" />
+    <result column="brithday" jdbcType="TIMESTAMP" property="brithday" />
+    <result column="grade_id" jdbcType="INTEGER" property="gradeId" />
+    <result column="chargeType" jdbcType="INTEGER" property="chargetype" />
+    <result column="setClass_date" jdbcType="TIMESTAMP" property="setclassDate" />
+    <result column="chargeAmount" jdbcType="DOUBLE" property="chargeamount" />
+    <result column="will_into_date" jdbcType="TIMESTAMP" property="willIntoDate" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="setClass_parents" jdbcType="VARCHAR" property="setclassParents" />
+    <result column="setClass_teacher" jdbcType="VARCHAR" property="setclassTeacher" />
+    <result column="setClass_ticketNo" jdbcType="VARCHAR" property="setclassTicketno" />
+    <result column="into_kindergarten" jdbcType="INTEGER" property="intoKindergarten" />
+    <result column="attache" jdbcType="VARCHAR" property="attache" />
+    <result column="pictrue" jdbcType="VARCHAR" property="pictrue" />
+    <result column="isReturn" jdbcType="INTEGER" property="isreturn" />
+    <result column="returnType" jdbcType="VARCHAR" property="returntype" />
+    <result column="returnDate" jdbcType="TIMESTAMP" property="returndate" />
+    <result column="returnWay" jdbcType="INTEGER" property="returnway" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, studentName, student_code, gender, brithday, grade_id, chargeType, setClass_date,
+    chargeAmount, will_into_date, phone, setClass_parents, setClass_teacher, setClass_ticketNo,
+    into_kindergarten, attache, pictrue, isReturn, returnType, returnDate, returnWay,
+    remark, created_by
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from kms_student
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from kms_student
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.recruit.Student" useGeneratedKeys="true">
+    insert into kms_student (studentName, student_code, gender,
+                             brithday, grade_id, chargeType,
+                             setClass_date, chargeAmount, will_into_date,
+                             phone, setClass_parents, setClass_teacher,
+                             setClass_ticketNo, into_kindergarten, attache,
+                             pictrue, isReturn, returnType,
+                             returnDate, returnWay, remark,
+                             created_by)
+    values (#{studentname,jdbcType=VARCHAR}, #{studentCode,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER},
+            #{brithday,jdbcType=TIMESTAMP}, #{gradeId,jdbcType=INTEGER}, #{chargetype,jdbcType=INTEGER},
+            #{setclassDate,jdbcType=TIMESTAMP}, #{chargeamount,jdbcType=DOUBLE}, #{willIntoDate,jdbcType=TIMESTAMP},
+            #{phone,jdbcType=VARCHAR}, #{setclassParents,jdbcType=VARCHAR}, #{setclassTeacher,jdbcType=VARCHAR},
+            #{setclassTicketno,jdbcType=VARCHAR}, #{intoKindergarten,jdbcType=INTEGER}, #{attache,jdbcType=VARCHAR},
+            #{pictrue,jdbcType=VARCHAR}, #{isreturn,jdbcType=INTEGER}, #{returntype,jdbcType=VARCHAR},
+            #{returndate,jdbcType=TIMESTAMP}, #{returnway,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR},
+            #{createdBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.recruit.Student" useGeneratedKeys="true">
+    insert into kms_student
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="studentname != null">
+        studentName,
+      </if>
+      <if test="studentCode != null">
+        student_code,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="brithday != null">
+        brithday,
+      </if>
+      <if test="gradeId != null">
+        grade_id,
+      </if>
+      <if test="chargetype != null">
+        chargeType,
+      </if>
+      <if test="setclassDate != null">
+        setClass_date,
+      </if>
+      <if test="chargeamount != null">
+        chargeAmount,
+      </if>
+      <if test="willIntoDate != null">
+        will_into_date,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="setclassParents != null">
+        setClass_parents,
+      </if>
+      <if test="setclassTeacher != null">
+        setClass_teacher,
+      </if>
+      <if test="setclassTicketno != null">
+        setClass_ticketNo,
+      </if>
+      <if test="intoKindergarten != null">
+        into_kindergarten,
+      </if>
+      <if test="attache != null">
+        attache,
+      </if>
+      <if test="pictrue != null">
+        pictrue,
+      </if>
+      <if test="isreturn != null">
+        isReturn,
+      </if>
+      <if test="returntype != null">
+        returnType,
+      </if>
+      <if test="returndate != null">
+        returnDate,
+      </if>
+      <if test="returnway != null">
+        returnWay,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createdBy != null">
+        created_by,
+      </if>
+        <if test="gardenId != null">
+          garden_id,
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="studentname != null">
+        #{studentname,jdbcType=VARCHAR},
+      </if>
+      <if test="studentCode != null">
+        #{studentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="brithday != null">
+        #{brithday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gradeId != null">
+        #{gradeId,jdbcType=INTEGER},
+      </if>
+      <if test="chargetype != null">
+        #{chargetype,jdbcType=INTEGER},
+      </if>
+      <if test="setclassDate != null">
+        #{setclassDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chargeamount != null">
+        #{chargeamount,jdbcType=DOUBLE},
+      </if>
+      <if test="willIntoDate != null">
+        #{willIntoDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="setclassParents != null">
+        #{setclassParents,jdbcType=VARCHAR},
+      </if>
+      <if test="setclassTeacher != null">
+        #{setclassTeacher,jdbcType=VARCHAR},
+      </if>
+      <if test="setclassTicketno != null">
+        #{setclassTicketno,jdbcType=VARCHAR},
+      </if>
+      <if test="intoKindergarten != null">
+        #{intoKindergarten,jdbcType=INTEGER},
+      </if>
+      <if test="attache != null">
+        #{attache,jdbcType=VARCHAR},
+      </if>
+      <if test="pictrue != null">
+        #{pictrue,jdbcType=VARCHAR},
+      </if>
+      <if test="isreturn != null">
+        #{isreturn,jdbcType=INTEGER},
+      </if>
+      <if test="returntype != null">
+        #{returntype,jdbcType=VARCHAR},
+      </if>
+      <if test="returndate != null">
+        #{returndate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="returnway != null">
+        #{returnway,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="gardenId != null">
+        #{gardenId,jdbcType=BIGINT}
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.axjy.pojo.recruit.Student">
+    update kms_student
+    <set>
+      <if test="studentname != null">
+        studentName = #{studentname,jdbcType=VARCHAR},
+      </if>
+      <if test="studentCode != null">
+        student_code = #{studentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="brithday != null">
+        brithday = #{brithday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gradeId != null">
+        grade_id = #{gradeId,jdbcType=INTEGER},
+      </if>
+      <if test="chargetype != null">
+        chargeType = #{chargetype,jdbcType=INTEGER},
+      </if>
+      <if test="setclassDate != null">
+        setClass_date = #{setclassDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chargeamount != null">
+        chargeAmount = #{chargeamount,jdbcType=DOUBLE},
+      </if>
+      <if test="willIntoDate != null">
+        will_into_date = #{willIntoDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="setclassParents != null">
+        setClass_parents = #{setclassParents,jdbcType=VARCHAR},
+      </if>
+      <if test="setclassTeacher != null">
+        setClass_teacher = #{setclassTeacher,jdbcType=VARCHAR},
+      </if>
+      <if test="setclassTicketno != null">
+        setClass_ticketNo = #{setclassTicketno,jdbcType=VARCHAR},
+      </if>
+      <if test="intoKindergarten != null">
+        into_kindergarten = #{intoKindergarten,jdbcType=INTEGER},
+      </if>
+      <if test="attache != null">
+        attache = #{attache,jdbcType=VARCHAR},
+      </if>
+      <if test="pictrue != null">
+        pictrue = #{pictrue,jdbcType=VARCHAR},
+      </if>
+      <if test="isreturn != null">
+        isReturn = #{isreturn,jdbcType=INTEGER},
+      </if>
+      <if test="returntype != null">
+        returnType = #{returntype,jdbcType=VARCHAR},
+      </if>
+      <if test="returndate != null">
+        returnDate = #{returndate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="returnway != null">
+        returnWay = #{returnway,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null">
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.axjy.pojo.recruit.Student">
+    update kms_student
+    set studentName = #{studentname,jdbcType=VARCHAR},
+        student_code = #{studentCode,jdbcType=VARCHAR},
+        gender = #{gender,jdbcType=INTEGER},
+        brithday = #{brithday,jdbcType=TIMESTAMP},
+        grade_id = #{gradeId,jdbcType=INTEGER},
+        chargeType = #{chargetype,jdbcType=INTEGER},
+        setClass_date = #{setclassDate,jdbcType=TIMESTAMP},
+        chargeAmount = #{chargeamount,jdbcType=DOUBLE},
+        will_into_date = #{willIntoDate,jdbcType=TIMESTAMP},
+        phone = #{phone,jdbcType=VARCHAR},
+        setClass_parents = #{setclassParents,jdbcType=VARCHAR},
+        setClass_teacher = #{setclassTeacher,jdbcType=VARCHAR},
+        setClass_ticketNo = #{setclassTicketno,jdbcType=VARCHAR},
+        into_kindergarten = #{intoKindergarten,jdbcType=INTEGER},
+        attache = #{attache,jdbcType=VARCHAR},
+        pictrue = #{pictrue,jdbcType=VARCHAR},
+        isReturn = #{isreturn,jdbcType=INTEGER},
+        returnType = #{returntype,jdbcType=VARCHAR},
+        returnDate = #{returndate,jdbcType=TIMESTAMP},
+        returnWay = #{returnway,jdbcType=INTEGER},
+        remark = #{remark,jdbcType=VARCHAR},
+        created_by = #{createdBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+
+
+  <update id="tupdate">
+    update kms_student set returndate = #{returnDetailVo.returnInfo.returndate},returnway = #{returnDetailVo.returnInfo.returnway},returntype = #{returnDetailVo.returnInfo.returntype},isReturn = 0 where id in (
+    <foreach collection="returnDetailVo.ids" item="id" separator=",">
+      #{id}
+    </foreach>
+    )
+  </update>
+
+
+</mapper>

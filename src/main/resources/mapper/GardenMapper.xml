@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axjy.mapper.base.GardenMapper">
+
+  <select id="findAll" resultType="com.axjy.pojo.base.Garden">
+    select * from kms_garden
+        <if test="field!=null and value != null">
+             where ${field} like concat('%',#{value},'%')
+        </if>
+  </select>
+  <select id="findByCode" resultType="com.axjy.pojo.base.Garden">
+    select * from kms_garden where garden_code = #{gardenCode} <if test="id!=null"> and id != #{id}</if>
+  </select>
+  <select id="findByName" resultType="com.axjy.pojo.base.Garden">
+    select * from kms_garden where garden_name = #{gardenName} <if test="id!=null"> and id != #{id}</if>
+  </select>
+
+  <delete id="batchDel">
+    delete from kms_garden where id in
+    <foreach collection="array" open="(" close=")" separator="," item="id">
+        #{id}
+    </foreach>
+  </delete>
+  <resultMap id="BaseResultMap" type="com.axjy.pojo.base.Garden">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="garden_code" jdbcType="VARCHAR" property="gardenCode" />
+    <result column="garden_name" jdbcType="VARCHAR" property="gardenName" />
+    <result column="garden_principal" jdbcType="VARCHAR" property="gardenPrincipal" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="fax" jdbcType="VARCHAR" property="fax" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="prefix_suffix" jdbcType="VARCHAR" property="prefixSuffix" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, garden_code, garden_name,  garden_principal, phone, fax, remark, prefix_suffix
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from kms_garden
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from kms_garden
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.base.Garden" useGeneratedKeys="true">
+    insert into kms_garden (garden_code, garden_name,
+      garden_principal, phone, fax, 
+      remark, prefix_suffix)
+    values (#{gardenCode,jdbcType=VARCHAR}, #{gardenName,jdbcType=VARCHAR},
+      #{gardenPrincipal,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{fax,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{prefixSuffix,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.base.Garden" useGeneratedKeys="true">
+    insert into kms_garden
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gardenCode != null">
+        garden_code,
+      </if>
+      <if test="gardenName != null">
+        garden_name,
+      </if>
+      <if test="parentOrg != null">
+        parent_org,
+      </if>
+      <if test="gardenPrincipal != null">
+        garden_principal,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="fax != null">
+        fax,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="prefixSuffix != null">
+        prefix_suffix,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gardenCode != null">
+        #{gardenCode,jdbcType=VARCHAR},
+      </if>
+      <if test="gardenName != null">
+        #{gardenName,jdbcType=VARCHAR},
+      </if>
+      <if test="gardenPrincipal != null">
+        #{gardenPrincipal,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null">
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="prefixSuffix != null">
+        #{prefixSuffix,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.axjy.pojo.base.Garden">
+    update kms_garden
+    <set>
+      <if test="gardenCode != null">
+        garden_code = #{gardenCode,jdbcType=VARCHAR},
+      </if>
+      <if test="gardenName != null">
+        garden_name = #{gardenName,jdbcType=VARCHAR},
+      </if>
+      <if test="gardenPrincipal != null">
+        garden_principal = #{gardenPrincipal,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null">
+        fax = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="prefixSuffix != null">
+        prefix_suffix = #{prefixSuffix,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.axjy.pojo.base.Garden">
+    update kms_garden
+    set garden_code = #{gardenCode,jdbcType=VARCHAR},
+      garden_name = #{gardenName,jdbcType=VARCHAR},
+      garden_principal = #{gardenPrincipal,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      fax = #{fax,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      prefix_suffix = #{prefixSuffix,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

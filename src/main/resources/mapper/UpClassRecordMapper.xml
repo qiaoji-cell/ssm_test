@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axjy.mapper.base.UpClassRecordMapper">
+  <resultMap id="recordRm" type="com.axjy.pojo.base.UpClassRecord">
+    <id column="id" property="id"></id>
+    <result property="userName" column="userName"></result>
+  </resultMap>
+  <select id="findAllByUserCode" resultMap="recordRm">
+    select t1.*,ku.userName from kms_up_class_record t1 left join kms_user ku on t1.user_code = ku.user_code
+    <where>
+      <if test="userCode!=null">
+        and t1.user_code = #{userCode}
+      </if>
+    </where>
+  </select>
+  <resultMap id="BaseResultMap" type="com.axjy.pojo.base.UpClassRecord">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="up_date" jdbcType="TIMESTAMP" property="upDate" />
+    <result column="new_class" jdbcType="VARCHAR" property="newClass" />
+    <result column="old_class" jdbcType="VARCHAR" property="oldClass" />
+    <result column="up_note" jdbcType="VARCHAR" property="upNote" />
+    <result column="user_code" jdbcType="VARCHAR" property="userCode" />
+    <result column="up_user" jdbcType="VARCHAR" property="upUser" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, up_date, new_class, old_class, up_note, user_code, up_user
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from kms_up_class_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from kms_up_class_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.base.UpClassRecord" useGeneratedKeys="true">
+    insert into kms_up_class_record (up_date, new_class, old_class, 
+      up_note, user_code, up_user
+      )
+    values (#{upDate,jdbcType=TIMESTAMP}, #{newClass,jdbcType=VARCHAR}, #{oldClass,jdbcType=VARCHAR}, 
+      #{upNote,jdbcType=VARCHAR}, #{userCode,jdbcType=VARCHAR}, #{upUser,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.base.UpClassRecord" useGeneratedKeys="true">
+    insert into kms_up_class_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="upDate != null">
+        up_date,
+      </if>
+      <if test="newClass != null">
+        new_class,
+      </if>
+      <if test="oldClass != null">
+        old_class,
+      </if>
+      <if test="upNote != null">
+        up_note,
+      </if>
+      <if test="userCode != null">
+        user_code,
+      </if>
+      <if test="upUser != null">
+        up_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="upDate != null">
+        #{upDate,jdbcType=DATE},
+      </if>
+      <if test="newClass != null">
+        #{newClass,jdbcType=VARCHAR},
+      </if>
+      <if test="oldClass != null">
+        #{oldClass,jdbcType=VARCHAR},
+      </if>
+      <if test="upNote != null">
+        #{upNote,jdbcType=VARCHAR},
+      </if>
+      <if test="userCode != null">
+        #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="upUser != null">
+        #{upUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.axjy.pojo.base.UpClassRecord">
+    update kms_up_class_record
+    <set>
+      <if test="upDate != null">
+        up_date = #{upDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="newClass != null">
+        new_class = #{newClass,jdbcType=VARCHAR},
+      </if>
+      <if test="oldClass != null">
+        old_class = #{oldClass,jdbcType=VARCHAR},
+      </if>
+      <if test="upNote != null">
+        up_note = #{upNote,jdbcType=VARCHAR},
+      </if>
+      <if test="userCode != null">
+        user_code = #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="upUser != null">
+        up_user = #{upUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.axjy.pojo.base.UpClassRecord">
+    update kms_up_class_record
+    set up_date = #{upDate,jdbcType=TIMESTAMP},
+      new_class = #{newClass,jdbcType=VARCHAR},
+      old_class = #{oldClass,jdbcType=VARCHAR},
+      up_note = #{upNote,jdbcType=VARCHAR},
+      user_code = #{userCode,jdbcType=VARCHAR},
+      up_user = #{upUser,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

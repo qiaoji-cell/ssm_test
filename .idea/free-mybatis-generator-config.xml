@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PersistentConfig">
+    <option name="historyConfigList">
+      <map>
+        <entry key="kms_approval_eat_care">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="ApprovalEatCareMapper" />
+              <option name="daoPackage" value="com.axjy.mapper.generalCharge" />
+              <option name="daoPostfix" value="Mapper" />
+              <option name="jsr310Support" value="true" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="ApprovalEatCare" />
+              <option name="modelPackage" value="com.axjy.pojo.generalCharge" />
+              <option name="name" value="kms_approval_eat_care" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="approval_id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="kms_approval_eat_care" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="kms_business">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="KmsBusinessMapper" />
+              <option name="daoPackage" value="com.axjy.mapper.base" />
+              <option name="daoPostfix" value="Mapper" />
+              <option name="jsr310Support" value="true" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="KmsBusiness" />
+              <option name="modelPackage" value="com.axjy.pojo.base" />
+              <option name="name" value="kms_business" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="kms_business" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="kms_charge_record">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="ChargeRecordMapper" />
+              <option name="daoPackage" value="com.axjy.mapper.generalCharge" />
+              <option name="daoPostfix" value="Mapper" />
+              <option name="jsr310Support" value="true" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="ChargeRecord" />
+              <option name="modelPackage" value="com.axjy.pojo.generalCharge" />
+              <option name="name" value="kms_charge_record" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="kms_charge_record" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="kms_class">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="KmsClassDao" />
+              <option name="daoPackage" value="generate" />
+              <option name="daoPostfix" value="Dao" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="KmsClass" />
+              <option name="modelPackage" value="generate" />
+              <option name="name" value="kms_class" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="kms_class" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="generator" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="kms_class_garden">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="ClassGardenMapper" />
+              <option name="daoPackage" value="com.axjy.mapper.base" />
+              <option name="daoPostfix" value="Mapper" />
+              <option name="jsr310Support" value="true" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="ClassGarden" />
+              <option name="modelPackage" value="com.axjy.pojo.base" />
+              <option name="name" value="kms_class_garden" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="kms_class_garden" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="kms_cost_category">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="CostCategoryMapper" />
+              <option name="daoPackage" value="com.axjy.mapper.generalCharge" />
+              <option name="daoPostfix" value="Mapper" />
+              <option name="jsr310Support" value="true" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="CostCategory" />
+              <option name="modelPackage" value="com.axjy.pojo.generalCharge" />
+              <option name="name" value="kms_cost_category" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="kms_cost_category" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="kms_costcategory">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="CostcategoryDao" />
+              <option name="daoPackage" value="com.axjy.mapper.generalCharge" />
+              <option name="daoPostfix" value="Dao" />
+              <option name="jsr310Support" value="true" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="Costcategory" />
+              <option name="modelPackage" value="com.axjy.pojo.generalCharge" />
+              <option name="name" value="kms_costcategory" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="kms_costcategory" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="kms_dep">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="KmsDepMapper" />
+              <option name="daoPackage" value="com.axjy.mapper.base" />
+              <option name="daoPostfix" value="Mapper" />
+              <option name="jsr310Support" value="true" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="KmsDep" />
+              <option name="modelPackage" value="com.axjy.pojo.base" />
+              <option name="name" value="kms_dep" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="kms_dep" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="kms_dep_garden">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="KmsDepGardenMapper" />
+              <option name="daoPackage" value="com.axjy.mapper.sys" />
+              <option name="daoPostfix" value="Mapper" />
+              <option name="jsr310Support" value="true" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="KmsDepGarden" />
+              <option name="modelPackage" value="com.axjy.pojo.sys" />
+              <option name="name" value="kms_dep_garden" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="kms_dep_garden" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="kms_garden">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="KmsGardenDao" />
+              <option name="daoPackage" value="com.axjy.mapper.base" />
+              <option name="daoPostfix" value="Dao" />
+              <option name="jsr310Support" value="true" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="KmsGarden" />
+              <option name="modelPackage" value="com.axjy.pojo.base" />
+              <option name="name" value="kms_garden" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="kms_garden" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="kms_garden_rule">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="GardenRuleMapper" />
+              <option name="daoPackage" value="com.axjy.mapper.base" />
+              <option name="daoPostfix" value="Mapper" />
+              <option name="jsr310Support" value="true" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="GardenRule" />
+              <option name="modelPackage" value="com.axjy.pojo.base" />
+              <option name="name" value="kms_garden_rule" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="kms_garden_rule" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="kms_grade">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="KmsGradeDao" />
+              <option name="daoPackage" value="com.axjy.mapper" />
+              <option name="daoPostfix" value="Dao" />
+              <option name="jsr310Support" value="true" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="KmsGrade" />
+              <option name="modelPackage" value="com.axjy.pojo" />
+              <option name="name" value="kms_grade" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="kms_grade" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="kms_groove">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="KmsGrooveMapper" />
+              <option name="daoPackage" value="generate" />
+              <option name="daoPostfix" value="Mapper" />
+              <option name="jsr310Support" value="true" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="KmsGroove" />
+              <option name="modelPackage" value="generate" />
+              <option name="name" value="kms_groove" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="kms_groove" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="generate" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="kms_permission">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="KmsPermissionMapper" />
+              <option name="daoPackage" value="generate" />
+              <option name="daoPostfix" value="Mapper" />
+              <option name="jsr310Support" value="true" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="KmsPermission" />
+              <option name="modelPackage" value="com.axjy.pojo" />
+              <option name="name" value="kms_permission" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="kms_permission" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="kms_pos">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="KmsPosMapper" />
+              <option name="daoPackage" value="com.axjy.pojo.base" />
+              <option name="daoPostfix" value="Mapper" />
+              <option name="jsr310Support" value="true" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="KmsPos" />
+              <option name="modelPackage" value="com.axjy.pojo.base" />
+              <option name="name" value="kms_pos" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="kms_pos" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="kms_pos_garden">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="KmsPosGardenMapper" />
+              <option name="daoPackage" value="com.axjy.mapper.sys" />
+              <option name="daoPostfix" value="Mapper" />
+              <option name="jsr310Support" value="true" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="KmsPosGarden" />
+              <option name="modelPackage" value="com.axjy.pojo.sys" />
+              <option name="name" value="kms_pos_garden" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="kms_pos_garden" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="kms_role">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="KmsRoleMapper" />
+              <option name="daoPackage" value="com.axjy.mapper.sys" />
+              <option name="daoPostfix" value="Mapper" />
+              <option name="jsr310Support" value="true" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="KmsRole" />
+              <option name="modelPackage" value="com.axjy.pojo.sys" />
+              <option name="name" value="kms_role" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="kms_role" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="kms_role_garden">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="RoleGardenMapper" />
+              <option name="daoPackage" value="com.axjy.mapper.sys" />
+              <option name="daoPostfix" value="Mapper" />
+              <option name="jsr310Support" value="true" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="RoleGarden" />
+              <option name="modelPackage" value="com.axjy.pojo.sys" />
+              <option name="name" value="kms_role_garden" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="kms_role_garden" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="kms_role_permission">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="KmsRolePermissionMapper" />
+              <option name="daoPackage" value="com.axjy.mapper.sys" />
+              <option name="daoPostfix" value="Mapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="KmsRolePermission" />
+              <option name="modelPackage" value="com.axjy.pojo.sys" />
+              <option name="name" value="kms_role_permission" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="kms_role_permission" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="kms_stu_record_eat_care">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="StuRecordEatCareKmsMapper" />
+              <option name="daoPackage" value="com.axjy.mapper.generalCharge" />
+              <option name="daoPostfix" value="KmsMapper" />
+              <option name="jsr310Support" value="true" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="StuRecordEatCare" />
+              <option name="modelPackage" value="com.axjy.pojo.generalCharge" />
+              <option name="name" value="kms_stu_record_eat_care" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="kms_stu_record_eat_care" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="kms_stu_record_other">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="StuRecordOtherMapper" />
+              <option name="daoPackage" value="com.axjy.mapper.generalCharge" />
+              <option name="daoPostfix" value="Mapper" />
+              <option name="jsr310Support" value="true" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="StuRecordOther" />
+              <option name="modelPackage" value="com.axjy.pojo.generalCharge" />
+              <option name="name" value="kms_stu_record_other" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="kms_stu_record_other" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="kms_student">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="KmsStudentMapper" />
+              <option name="daoPackage" value="com.axjy.mapper" />
+              <option name="daoPostfix" value="Mapper" />
+              <option name="jsr310Support" value="true" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="KmsStudent" />
+              <option name="modelPackage" value="com.axjy.pojo" />
+              <option name="name" value="kms_student" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="kms_student" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="kms_up_class_record">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="UpClassRecordMapper" />
+              <option name="daoPackage" value="com.axjy.mapper.base" />
+              <option name="daoPostfix" value="Mapper" />
+              <option name="jsr310Support" value="true" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="UpClassRecord" />
+              <option name="modelPackage" value="com.axjy.pojo.base" />
+              <option name="name" value="kms_up_class_record" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="kms_up_class_record" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="kms_upclass_record">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="UpclassRecordMapper" />
+              <option name="daoPackage" value="com.axjy.mapper.base" />
+              <option name="daoPostfix" value="Mapper" />
+              <option name="jsr310Support" value="true" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="UpclassRecord" />
+              <option name="modelPackage" value="com.axjy.pojo.base" />
+              <option name="name" value="kms_upclass_record" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="kms_upclass_record" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="kms_user">
+          <value>
+            <Config>
+              <option name="annotationDAO" value="true" />
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="KmsUserMapper" />
+              <option name="daoPackage" value="generate" />
+              <option name="daoPostfix" value="Mapper" />
+              <option name="jsr310Support" value="true" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="KmsUser" />
+              <option name="modelPackage" value="generate" />
+              <option name="name" value="kms_user" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="kms_user" />
+              <option name="useActualColumnNames" value="true" />
+              <option name="useDAOExtendStyle" value="true" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="generate" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="kms_user_garden">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="UserGardenMapper" />
+              <option name="daoPackage" value="com.axjy.mapper.sys" />
+              <option name="daoPostfix" value="Mapper" />
+              <option name="jsr310Support" value="true" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="UserGarden" />
+              <option name="modelPackage" value="com.axjy.pojo.sys" />
+              <option name="name" value="kms_user_garden" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="kms_user_garden" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="kms_user_loginlog">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="UserLogMapper" />
+              <option name="daoPackage" value="com.axjy.mapper.log" />
+              <option name="daoPostfix" value="Mapper" />
+              <option name="jsr310Support" value="true" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="UserLog" />
+              <option name="modelPackage" value="com.axjy.pojo.log" />
+              <option name="name" value="kms_user_loginlog" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="kms_user_loginlog" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="kms_user_role">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="UserRoleDao" />
+              <option name="daoPackage" value="com.axjy.mapper.sys" />
+              <option name="daoPostfix" value="Dao" />
+              <option name="jsr310Support" value="true" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="UserRole" />
+              <option name="modelPackage" value="com.axjy.pojo.sys" />
+              <option name="name" value="kms_user_role" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="kms_user_role" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

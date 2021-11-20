@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axjy.mapper.base.GardenRuleMapper">
+  <delete id="delRule">
+    delete from kms_garden_rule where garden_id = #{gardenId}
+  </delete>
+  <select id="findByGardenId" resultMap="BaseResultMap">
+    select * from kms_garden_rule where garden_id = #{gardenId}
+  </select>
+
+  <resultMap id="BaseResultMap" type="com.axjy.pojo.base.GardenRule">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="attendance_days" jdbcType="INTEGER" property="attendanceDays" />
+    <result column="less_unit" jdbcType="INTEGER" property="lessUnit" />
+    <result column="less_choice" jdbcType="INTEGER" property="lessChoice" />
+    <result column="less_choice_return_rate" jdbcType="INTEGER" property="lessChoiceReturnRate" />
+    <result column="attendance_rule" jdbcType="INTEGER" property="attendanceRule" />
+    <result column="eat_money_rule" jdbcType="INTEGER" property="eatMoneyRule" />
+    <result column="garden_id" jdbcType="VARCHAR" property="gardenId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id,  attendance_days, less_unit, less_choice, less_choice_return_rate,
+    attendance_rule, eat_money_rule, garden_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from kms_garden_rule
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from kms_garden_rule
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.base.GardenRule" useGeneratedKeys="true">
+    insert into kms_garden_rule ( attendance_days,
+      less_unit, less_choice, less_choice_return_rate, 
+      attendance_rule, eat_money_rule, garden_id
+      )
+    values ( #{attendanceDays,jdbcType=INTEGER},
+      #{lessUnit,jdbcType=INTEGER}, #{lessChoice,jdbcType=INTEGER}, #{lessChoiceReturnRate,jdbcType=INTEGER}, 
+      #{attendanceRule,jdbcType=INTEGER}, #{eatMoneyRule,jdbcType=INTEGER}, #{gardenId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.base.GardenRule" useGeneratedKeys="true">
+    insert into kms_garden_rule
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+
+      <if test="attendanceDays != null">
+        attendance_days,
+      </if>
+      <if test="lessUnit != null">
+        less_unit,
+      </if>
+      <if test="lessChoice != null">
+        less_choice,
+      </if>
+      <if test="lessChoiceReturnRate != null">
+        less_choice_return_rate,
+      </if>
+      <if test="attendanceRule != null">
+        attendance_rule,
+      </if>
+      <if test="eatMoneyRule != null">
+        eat_money_rule,
+      </if>
+      <if test="gardenId != null">
+        garden_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+
+      <if test="attendanceDays != null">
+        #{attendanceDays,jdbcType=INTEGER},
+      </if>
+      <if test="lessUnit != null">
+        #{lessUnit,jdbcType=INTEGER},
+      </if>
+      <if test="lessChoice != null">
+        #{lessChoice,jdbcType=INTEGER},
+      </if>
+      <if test="lessChoiceReturnRate != null">
+        #{lessChoiceReturnRate,jdbcType=INTEGER},
+      </if>
+      <if test="attendanceRule != null">
+        #{attendanceRule,jdbcType=INTEGER},
+      </if>
+      <if test="eatMoneyRule != null">
+        #{eatMoneyRule,jdbcType=INTEGER},
+      </if>
+      <if test="gardenId != null">
+        #{gardenId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.axjy.pojo.base.GardenRule">
+    update kms_garden_rule
+    <set>
+
+      <if test="attendanceDays != null">
+        attendance_days = #{attendanceDays,jdbcType=INTEGER},
+      </if>
+      <if test="lessUnit != null">
+        less_unit = #{lessUnit,jdbcType=INTEGER},
+      </if>
+      <if test="lessChoice != null">
+        less_choice = #{lessChoice,jdbcType=INTEGER},
+      </if>
+      <if test="lessChoiceReturnRate != null">
+        less_choice_return_rate = #{lessChoiceReturnRate,jdbcType=INTEGER},
+      </if>
+      <if test="attendanceRule != null">
+        attendance_rule = #{attendanceRule,jdbcType=INTEGER},
+      </if>
+      <if test="eatMoneyRule != null">
+        eat_money_rule = #{eatMoneyRule,jdbcType=INTEGER},
+      </if>
+      <if test="gardenId != null">
+        garden_id = #{gardenId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.axjy.pojo.base.GardenRule">
+    update kms_garden_rule
+    set
+      attendance_days = #{attendanceDays,jdbcType=INTEGER},
+      less_unit = #{lessUnit,jdbcType=INTEGER},
+      less_choice = #{lessChoice,jdbcType=INTEGER},
+      less_choice_return_rate = #{lessChoiceReturnRate,jdbcType=INTEGER},
+      attendance_rule = #{attendanceRule,jdbcType=INTEGER},
+      eat_money_rule = #{eatMoneyRule,jdbcType=INTEGER},
+      garden_id = #{gardenId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

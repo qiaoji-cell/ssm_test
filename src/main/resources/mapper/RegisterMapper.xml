@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axjy.mapper.teach.RegisterMapper">
+
+
+
+  <select id="find" resultType="com.axjy.pojo.teach.Register">
+    SELECT * from kms_register as re INNER JOIN kms_student_record as st on re.student_id = st.id
+                                     INNER JOIN  kms_class as cla on re.classroom_id = cla.id
+                                     INNER JOIN kms_classmodel as clm on re.classModel_id = clm.id
+                                     where classModel_id=#{classModelId}
+
+
+  </select>
+
+  <select id="query" resultType="java.lang.Integer">
+    select count(*) from kms_register where student_id=#{student_id}
+  </select>
+
+
+  <resultMap id="BaseResultMap" type="com.axjy.pojo.teach.Register">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="student_id" jdbcType="BIGINT" property="studentId" />
+    <result column="classroom_id" jdbcType="BIGINT" property="classroomId" />
+    <result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="Paidin" jdbcType="DOUBLE" property="paidin" />
+    <result column="expla_in" jdbcType="VARCHAR" property="explaIn" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, student_id, classroom_id, start_date, end_date, Paidin, expla_in
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from kms_register
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from kms_register
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.teach.Register" useGeneratedKeys="true">
+    insert into kms_register (student_id, classroom_id, start_date, 
+      end_date, Paidin, expla_in
+      )
+    values (#{studentId,jdbcType=BIGINT}, #{classroomId,jdbcType=BIGINT}, #{startDate,jdbcType=TIMESTAMP}, 
+      #{endDate,jdbcType=TIMESTAMP}, #{paidin,jdbcType=DOUBLE}, #{explaIn,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.teach.Register" useGeneratedKeys="true">
+    insert into kms_register
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="studentId != null">
+        student_id,
+      </if>
+      <if test="classroomId != null">
+        classroom_id,
+      </if>
+      <if test="startDate != null">
+        start_date,
+      </if>
+    <if test="classModelId!=null">
+      classModel_id,
+    </if>
+      <if test="endDate != null">
+        end_date,
+      </if>
+      <if test="classHour != null">
+        class_hour,
+      </if>
+      <if test="paidin != null">
+        Paidin,
+      </if>
+      <if test="explaIn != null">
+        expla_in,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="studentId != null">
+        #{studentId,jdbcType=BIGINT},
+      </if>
+      <if test="classroomId != null">
+        #{classroomId,jdbcType=BIGINT},
+      </if>
+      <if test="startDate != null">
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="classModelId!=null">
+        #{classModelId,jdbcType=BIGINT},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="classHour != null">
+        #{classHour,jdbcType=BIGINT},
+      </if>
+      <if test="paidin != null">
+        #{paidin,jdbcType=DOUBLE},
+      </if>
+      <if test="explaIn != null">
+        #{explaIn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.axjy.pojo.teach.Register">
+    update kms_register
+    <set>
+      <if test="studentId != null">
+        student_id = #{studentId,jdbcType=BIGINT},
+      </if>
+      <if test="classroomId != null">
+        classroom_id = #{classroomId,jdbcType=BIGINT},
+      </if>
+      <if test="startDate != null">
+        start_date = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        end_date = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="classHour != null">
+        class_hour = #{classHour,jdbcType=LONG},
+      </if>
+      <if test="paidin != null">
+        Paidin = #{paidin,jdbcType=DOUBLE},
+      </if>
+      <if test="explaIn != null">
+        expla_in = #{explaIn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.axjy.pojo.teach.Register">
+    update kms_register
+    set student_id = #{studentId,jdbcType=BIGINT},
+      classroom_id = #{classroomId,jdbcType=BIGINT},
+      start_date = #{startDate,jdbcType=TIMESTAMP},
+      end_date = #{endDate,jdbcType=TIMESTAMP},
+      Paidin = #{paidin,jdbcType=DOUBLE},
+      expla_in = #{explaIn,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

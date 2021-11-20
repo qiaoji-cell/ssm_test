@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="autoMappingBehavior" value="FULL"/>
+        <setting name="useGeneratedKeys" value="true"/>
+        <!--开启延迟加载-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--将aggressiveLazyLoading设置为false表示按需加载，默认为true-->
+        <setting name="aggressiveLazyLoading" value="false"/>
+    </settings>
+    <typeAliases>
+        <!--实体的别名为类名的大小写均可-->
+        <package name="com.axjy.pojo"/>
+        <!--<typeAlias type="com.hdax.mybatis.entity.User" alias="user" />
+        <typeAlias type="com.hdax.mybatis.entity.Book" alias="book" />-->
+    </typeAliases>
+</configuration>

@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axjy.mapper.dayRegister.AttendanceRecordMapper">
+
+
+<!--考勤统计显示数据-->
+  <select id="findAll" resultType="com.axjy.pojo.dayRegister.AttendanceRecord">
+    select * from kms_attendance_record INNER JOIN kms_class on kms_attendance_record.classid = kms_class.id
+    <where>
+
+    <if test="attendanceRecord.willIntoDateStart!=null and attendanceRecord.willIntoDateStart!=''">
+      and inattendance >= #{attendanceRecord.willIntoDateStart}
+    </if>
+      <if test="attendanceRecord.willIntoDateEnd!=null and attendanceRecord.willIntoDateEnd!=''">
+        and inattendance &lt;= #{attendanceRecord.willIntoDateEnd}
+      </if>
+      <if test="attendanceRecord.name!=null and attendanceRecord.name!=''">
+        and name = #{attendanceRecord.name}
+      </if>
+      <if test="attendanceRecord.className!=null and attendanceRecord.className!=''">
+        and className = #{attendanceRecord.className}
+      </if>
+    </where>
+  </select>
+
+
+  <!--考勤统计统计在园人数-->
+  <select id="zyrs" resultType="java.lang.Integer">
+    select count(*) from kms_student where into_kindergarten = 0
+  </select>
+  <!--考勤统计不在园人数-->
+  <select id="bzyrs" resultType="java.lang.Integer">
+    select count(*) from kms_student where into_kindergarten = 1
+  </select>
+  <!--考勤统计病假总人数-->
+  <select id="bingjia" resultType="java.lang.Integer">
+    select sum(sickleave) from kms_attendance_record
+  </select>
+  <!--考勤统计事假总次数-->
+  <select id="shijia" resultType="java.lang.Integer">
+    select sum(leaver) from kms_attendance_record
+  </select>
+  <!--考勤统计总人数-->
+  <select id="zongrenshu" resultType="java.lang.Integer">
+    select count(*) from kms_attendance_record
+  </select>
+  <!--考勤统计用日期查看-->
+  <select id="querydatatime" resultType="com.axjy.pojo.dayRegister.AttendanceRecord">
+    select * from kms_attendance_record as record left JOIN kms_attendance_record_xi as xi on record.id = xi.record_id
+    where year(Inattendance)=#{year} and month(Inattendance)=#{month}
+  </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <resultMap id="BaseResultMap" type="com.axjy.pojo.dayRegister.AttendanceRecord">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="Inattendance" jdbcType="TIMESTAMP" property="inattendance" />
+    <result column="classid" jdbcType="INTEGER" property="classid" />
+    <result column="Stunumber" jdbcType="VARCHAR" property="stunumber" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="Signed" jdbcType="INTEGER" property="signed" />
+    <result column="leaver" jdbcType="INTEGER" property="leaver" />
+    <result column="sickleave" jdbcType="INTEGER" property="sickleave" />
+    <result column="Occupiedbed" jdbcType="INTEGER" property="occupiedbed" />
+    <result column="unregistered" jdbcType="INTEGER" property="unregistered" />
+    <result column="Notpark" jdbcType="INTEGER" property="notpark" />
+    <result column="vacation" jdbcType="INTEGER" property="vacation" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, Inattendance, classid, Stunumber, `name`, Signed, leaver, sickleave, Occupiedbed, 
+    unregistered, Notpark, vacation
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from kms_attendance_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from kms_attendance_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.dayRegister.AttendanceRecord" useGeneratedKeys="true">
+    insert into kms_attendance_record (Inattendance, classid, Stunumber, 
+      `name`, Signed, leaver, 
+      sickleave, Occupiedbed, unregistered, 
+      Notpark, vacation)
+    values (#{inattendance,jdbcType=TIMESTAMP}, #{classid,jdbcType=INTEGER}, #{stunumber,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{signed,jdbcType=INTEGER}, #{leaver,jdbcType=INTEGER}, 
+      #{sickleave,jdbcType=INTEGER}, #{occupiedbed,jdbcType=INTEGER}, #{unregistered,jdbcType=INTEGER}, 
+      #{notpark,jdbcType=INTEGER}, #{vacation,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.dayRegister.AttendanceRecord" useGeneratedKeys="true">
+    insert into kms_attendance_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="inattendance != null">
+        Inattendance,
+      </if>
+      <if test="classid != null">
+        classid,
+      </if>
+      <if test="stunumber != null">
+        Stunumber,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="signed != null">
+        Signed,
+      </if>
+      <if test="leaver != null">
+        leaver,
+      </if>
+      <if test="sickleave != null">
+        sickleave,
+      </if>
+      <if test="occupiedbed != null">
+        Occupiedbed,
+      </if>
+      <if test="unregistered != null">
+        unregistered,
+      </if>
+      <if test="notpark != null">
+        Notpark,
+      </if>
+      <if test="vacation != null">
+        vacation,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="inattendance != null">
+        #{inattendance,jdbcType=TIMESTAMP},
+      </if>
+      <if test="classid != null">
+        #{classid,jdbcType=INTEGER},
+      </if>
+      <if test="stunumber != null">
+        #{stunumber,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="signed != null">
+        #{signed,jdbcType=INTEGER},
+      </if>
+      <if test="leaver != null">
+        #{leaver,jdbcType=INTEGER},
+      </if>
+      <if test="sickleave != null">
+        #{sickleave,jdbcType=INTEGER},
+      </if>
+      <if test="occupiedbed != null">
+        #{occupiedbed,jdbcType=INTEGER},
+      </if>
+      <if test="unregistered != null">
+        #{unregistered,jdbcType=INTEGER},
+      </if>
+      <if test="notpark != null">
+        #{notpark,jdbcType=INTEGER},
+      </if>
+      <if test="vacation != null">
+        #{vacation,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.axjy.pojo.dayRegister.AttendanceRecord">
+    update kms_attendance_record
+    <set>
+      <if test="inattendance != null">
+        Inattendance = #{inattendance,jdbcType=TIMESTAMP},
+      </if>
+      <if test="classid != null">
+        classid = #{classid,jdbcType=INTEGER},
+      </if>
+      <if test="stunumber != null">
+        Stunumber = #{stunumber,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="signed != null">
+        Signed = #{signed,jdbcType=INTEGER},
+      </if>
+      <if test="leaver != null">
+        leaver = #{leaver,jdbcType=INTEGER},
+      </if>
+      <if test="sickleave != null">
+        sickleave = #{sickleave,jdbcType=INTEGER},
+      </if>
+      <if test="occupiedbed != null">
+        Occupiedbed = #{occupiedbed,jdbcType=INTEGER},
+      </if>
+      <if test="unregistered != null">
+        unregistered = #{unregistered,jdbcType=INTEGER},
+      </if>
+      <if test="notpark != null">
+        Notpark = #{notpark,jdbcType=INTEGER},
+      </if>
+      <if test="vacation != null">
+        vacation = #{vacation,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.axjy.pojo.dayRegister.AttendanceRecord">
+    update kms_attendance_record
+    set Inattendance = #{inattendance,jdbcType=TIMESTAMP},
+      classid = #{classid,jdbcType=INTEGER},
+      Stunumber = #{stunumber,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      Signed = #{signed,jdbcType=INTEGER},
+      leaver = #{leaver,jdbcType=INTEGER},
+      sickleave = #{sickleave,jdbcType=INTEGER},
+      Occupiedbed = #{occupiedbed,jdbcType=INTEGER},
+      unregistered = #{unregistered,jdbcType=INTEGER},
+      Notpark = #{notpark,jdbcType=INTEGER},
+      vacation = #{vacation,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+
+
+</mapper>

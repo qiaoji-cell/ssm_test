@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axjy.mapper.sys.UserMapper">
+
+
+  <select id="countUser" resultType="Integer">
+    select count(*) from  kms_user as us left JOIN
+    kms_user_garden as ug on us.id = ug.user_id
+    <where>
+      <if test="gardeId>0">
+        ug.garden_id = #{gardeId}
+      </if>
+    </where>
+  </select>
+
+  <select id="findApprovalPerson" resultType="User">
+    select distinct ku.userName from kms_user ku
+        left join kms_user_role kur on ku.id = kur.user_id
+        left join kms_role kr on kur.role_id = kr.id
+    where kr.role_name in('园所高级用户','园长','财务','财务管理员')
+  </select>
+  <update id="updateClassId" >
+    update kms_user set class_id = #{classId} where user_code = #{userCode}
+  </update>
+  <select id="batchDel">
+    delete from kms_user where id in
+    <foreach collection="array" item="uId" open="(" separator="," close=")">
+      #{uId}
+    </foreach>
+  </select>
+  <select id="countRoleUser" resultType="java.lang.Integer">
+    select count(0) from kms_user u left join kms_user_role ur on u.id = ur.user_id
+  </select>
+  <select id="countDepUser" resultType="java.lang.Integer">
+    select count(0) from kms_user where depId = #{depId}
+  </select>
+  <select id="countPosUser" resultType="java.lang.Integer">
+    select count(0) from kms_user where posId = #{posId}
+  </select>
+  <resultMap id="userRm" type="com.axjy.pojo.sys.User">
+    <id column="id" property="id"></id>
+    <result property="roleName" column="roleName"></result>
+    <result property="depName" column="depName"></result>
+    <result property="posName" column="posName"></result>
+    <result property="gardenName" column="gardenName"></result>
+    <result property="creation_date" column="creation_date"></result>
+    <result property="gardenName" column="gardenName"></result>
+    <result property="user_code" column="user_code"></result>
+    <result property="garden_id" column="gardenId"></result>
+  </resultMap>
+
+  <update id="updateBasics">
+    update kms_user set
+                      email = #{user.email},
+                      officePhone = #{user.officePhone},
+                      internalPhone = #{user.internalPhone},
+                      birthday = #{user.birthday},
+                      gender = #{user.gender}
+    where id = #{user.id}
+  </update>
+  <select id="findByCode" resultType="java.lang.Integer">
+    select count(0) from kms_user where user_code = #{userCode}
+    <if test="userId!=null">
+      and id != #{userId}
+    </if>
+  </select>
+
+  <update id="updateState">
+    update kms_user set state = #{state} where id = #{userId}
+  </update>
+  <select id="findAll"  resultMap="userRm">
+    select distinct u.*,d.dep_name depName,p.pos_name posName,
+
+    g.id gardenId,g.garden_name gardenName
+    from kms_user u
+    left join kms_user_role ur on u.id = ur.user_id
+    left join kms_dep d on u.depId = d.id
+    left join kms_pos p on p.id = u.posId
+    left join kms_user_garden ug on u.id = ug.user_id
+    left join kms_garden g on ug.garden_id = g.id
+    <where>
+      <if test="vo.depId!=null ">
+        and depId = #{vo.depId}
+      </if>
+      <if test="vo.field!=null and vo.field != ''">
+        and ${vo.field} like concat('%',#{vo.value},'%')
+      </if>
+      <if test="vo.gardenId != null">
+        and garden_id = #{vo.gardenId}
+      </if>
+    </where>
+  </select>
+
+  <resultMap id="settingUserRm" type="com.axjy.vo.base.SettingUserTo">
+    <id column="id" property="id"></id>
+    <result property="depName" column="depName"></result>
+    <result property="posName" column="posName"></result>
+    <result property="gardenName" column="gardenName"></result>
+    <result property="creation_date" column="creation_date"></result>
+    <result property="gardenName" column="gardenName"></result>
+    <result property="user_code" column="user_code"></result>
+    <result property="garden_id" column="gardenId"></result>
+    <result property="beLongClass.classname" column="className"></result>
+    <result property="beLongClass.id" column="id"></result>
+    <result property="is_approve" column="is_approve"></result>
+    <result property="is_watch" column="is_watch"></result>
+    <result property="is_purchase" column="is_purchase"></result>
+    <result property="class_id" column="class_id"></result>
+  </resultMap>
+
+  <select id="findSettingUser" resultMap="settingUserRm">
+    select distinct u.*,d.dep_name depName,p.pos_name posName,
+    c.className className,c.id classId,
+    g.id gardenId,g.garden_name gardenName
+    from kms_user u
+    left join kms_dep d on u.depId = d.id
+    left join kms_pos p on p.id = u.posId
+    left join kms_user_garden ug on u.id = ug.user_id
+    left join kms_garden g on ug.garden_id = g.id
+    left join kms_class c on u.class_id = c.id
+    <where>
+      <if test="vo.depId!=null ">
+        and depId = #{vo.depId}
+      </if>
+      <if test="vo.field!=null and vo.field != ''">
+        and ${vo.field} like concat('%',#{vo.value},'%')
+      </if>
+      <if test="vo.state!=null">
+        and state=#{vo.state}
+      </if>
+      <if test="vo.is_watch!=null">
+        and is_watch = #{vo.is_watch}
+      </if>
+      <if test="vo.is_purchase!=null">
+        and is_purchase = #{vo.is_purchase}
+      </if>
+      <if test="vo.is_approve!=null">
+        and is_approve = #{vo.is_approve}
+      </if>
+      <if test="vo.gardenId!=null">
+        and g.id = #{vo.gardenId}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectByUserCode" resultMap="userRm">
+    select distinct u.*,
+           d.id depId,d.dep_name depName,
+           p.id posId,p.pos_name posName
+    from kms_user u
+           left join kms_user_role ur on u.id = ur.user_id
+
+           left join kms_dep d on u.depId = d.id
+           left join kms_pos p on p.id = u.posId
+    where user_code = #{userCode}
+  </select>
+
+  <update id="updatePwd">
+    update kms_user set userPassword = #{userPwd} where id = #{userId}
+  </update>
+
+  <resultMap id="BaseResultMap" type="com.axjy.pojo.sys.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_code" jdbcType="VARCHAR" property="user_code" />
+    <result column="userName" jdbcType="VARCHAR" property="userName" />
+    <result column="userPassword" jdbcType="VARCHAR" property="userPassword" />
+    <result column="depId" jdbcType="BIGINT" property="depId" />
+    <result column="posId" jdbcType="BIGINT" property="posId" />
+    <result column="startDate" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="endDate" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
+    <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="gender" jdbcType="BOOLEAN" property="gender" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="class_id" jdbcType="BIGINT" property="class_id" />
+    <result column="is_purchase" jdbcType="BOOLEAN" property="is_purchase" />
+    <result column="is_approve" jdbcType="BOOLEAN" property="is_approve" />
+    <result column="is_watch" jdbcType="BOOLEAN" property="is_watch" />
+    <result column="created_by" jdbcType="BIGINT" property="created_by" />
+    <result column="creation_date" jdbcType="TIMESTAMP" property="creation_date" />
+    <result column="modify_by" jdbcType="BIGINT" property="modify_by" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modify_date" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="internalPhone" jdbcType="VARCHAR" property="internalPhone" />
+    <result column="officePhone" jdbcType="VARCHAR" property="officePhone" />
+    <result column="state" jdbcType="BIGINT" property="state" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_code, userName, userPassword, depId, posId, startDate, endDate, salt, birthday,
+    email, gender, phone, class_id, is_purchase, is_approve, is_watch, created_by, creation_date,
+    modify_by, modify_date, address, internalPhone, officePhone, `state`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from kms_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from kms_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.sys.User" useGeneratedKeys="true">
+    insert into kms_user (user_code, userName, userPassword,
+                          depId, posId, startDate,
+                          endDate, salt, birthday,
+                          email, gender, phone,
+                          class_id, is_purchase, is_approve,
+                          is_watch, created_by, creation_date,
+                          modify_by, modify_date, address,
+                          internalPhone, officePhone, `state`
+    )
+    values (#{user_code,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR},
+            #{depId,jdbcType=BIGINT}, #{posId,jdbcType=BIGINT}, #{startDate,jdbcType=TIMESTAMP},
+            #{endDate,jdbcType=TIMESTAMP}, #{salt,jdbcType=VARCHAR}, #{birthday,jdbcType=TIMESTAMP},
+            #{email,jdbcType=VARCHAR}, #{gender,jdbcType=BOOLEAN}, #{phone,jdbcType=VARCHAR},
+            #{class_id,jdbcType=BIGINT}, #{is_purchase,jdbcType=BOOLEAN}, #{is_approve,jdbcType=BOOLEAN},
+            #{is_watch,jdbcType=BOOLEAN}, #{created_by,jdbcType=BIGINT}, #{creation_date,jdbcType=TIMESTAMP},
+            #{modify_by,jdbcType=BIGINT}, #{modify_date,jdbcType=TIMESTAMP}, #{address,jdbcType=VARCHAR},
+            #{internalPhone,jdbcType=VARCHAR}, #{officePhone,jdbcType=VARCHAR}, #{state,jdbcType=BIGINT}
+           )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.sys.User" useGeneratedKeys="true">
+    insert into kms_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="user_code != null">
+        user_code,
+      </if>
+      <if test="userName != null">
+        userName,
+      </if>
+      <if test="userPassword != null">
+        userPassword,
+      </if>
+      <if test="depId != null">
+        depId,
+      </if>
+      <if test="posId != null">
+        posId,
+      </if>
+      <if test="startDate != null">
+        startDate,
+      </if>
+      <if test="endDate != null">
+        endDate,
+      </if>
+      <if test="salt != null">
+        salt,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="class_id != null">
+        class_id,
+      </if>
+      <if test="is_purchase != null">
+        is_purchase,
+      </if>
+      <if test="is_approve != null">
+        is_approve,
+      </if>
+      <if test="is_watch != null">
+        is_watch,
+      </if>
+      <if test="created_by != null">
+        created_by,
+      </if>
+      <if test="creation_date != null">
+        creation_date,
+      </if>
+      <if test="modify_by != null">
+        modify_by,
+      </if>
+      <if test="modify_date != null">
+        modify_date,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="internalPhone != null">
+        internalPhone,
+      </if>
+      <if test="officePhone != null">
+        officePhone,
+      </if>
+      <if test="state != null">
+        `state`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="user_code != null">
+        #{user_code,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null">
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="depId != null">
+        #{depId,jdbcType=BIGINT},
+      </if>
+      <if test="posId != null">
+        #{posId,jdbcType=BIGINT},
+      </if>
+      <if test="startDate != null">
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="salt != null">
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=BOOLEAN},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="class_id != null">
+        #{class_id,jdbcType=BIGINT},
+      </if>
+      <if test="is_purchase != null">
+        #{is_purchase,jdbcType=BOOLEAN},
+      </if>
+      <if test="is_approve != null">
+        #{is_approve,jdbcType=BOOLEAN},
+      </if>
+      <if test="is_watch != null">
+        #{is_watch,jdbcType=BOOLEAN},
+      </if>
+      <if test="created_by != null">
+        #{created_by,jdbcType=BIGINT},
+      </if>
+      <if test="creation_date != null">
+        #{creation_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modify_by != null">
+        #{modify_by,jdbcType=BIGINT},
+      </if>
+      <if test="modify_date != null">
+        #{modify_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="internalPhone != null">
+        #{internalPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="officePhone != null">
+        #{officePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.axjy.pojo.sys.User">
+    update kms_user
+    <set>
+      <if test="user_code != null">
+        user_code = #{user_code,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        userName = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null">
+        userPassword = #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="depId != null">
+        depId = #{depId,jdbcType=BIGINT},
+      </if>
+      <if test="posId != null">
+        posId = #{posId,jdbcType=BIGINT},
+      </if>
+      <if test="startDate != null">
+        startDate = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        endDate = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="salt != null">
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=BOOLEAN},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="class_id != null">
+        class_id = #{class_id,jdbcType=BIGINT},
+      </if>
+      <if test="is_purchase != null">
+        is_purchase = #{is_purchase,jdbcType=BOOLEAN},
+      </if>
+      <if test="is_approve != null">
+        is_approve = #{is_approve,jdbcType=BOOLEAN},
+      </if>
+      <if test="is_watch != null">
+        is_watch = #{is_watch,jdbcType=BOOLEAN},
+      </if>
+      <if test="created_by != null">
+        created_by = #{created_by,jdbcType=BIGINT},
+      </if>
+      <if test="creation_date != null">
+        creation_date = #{creation_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modify_by != null">
+        modify_by = #{modify_by,jdbcType=BIGINT},
+      </if>
+      <if test="modify_date != null">
+        modify_date = #{modify_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="internalPhone != null">
+        internalPhone = #{internalPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="officePhone != null">
+        officePhone = #{officePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        `state` = #{state,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.axjy.pojo.sys.User">
+    update kms_user
+    set user_code = #{user_code,jdbcType=VARCHAR},
+        userName = #{userName,jdbcType=VARCHAR},
+        userPassword = #{userPassword,jdbcType=VARCHAR},
+        depId = #{depId,jdbcType=BIGINT},
+        posId = #{posId,jdbcType=BIGINT},
+        startDate = #{startDate,jdbcType=TIMESTAMP},
+        endDate = #{endDate,jdbcType=TIMESTAMP},
+        salt = #{salt,jdbcType=VARCHAR},
+        birthday = #{birthday,jdbcType=TIMESTAMP},
+        email = #{email,jdbcType=VARCHAR},
+        gender = #{gender,jdbcType=BOOLEAN},
+        phone = #{phone,jdbcType=VARCHAR},
+        class_id = #{class_id,jdbcType=BIGINT},
+        is_purchase = #{is_purchase,jdbcType=BOOLEAN},
+        is_approve = #{is_approve,jdbcType=BOOLEAN},
+        is_watch = #{is_watch,jdbcType=BOOLEAN},
+        created_by = #{created_by,jdbcType=BIGINT},
+        creation_date = #{creation_date,jdbcType=TIMESTAMP},
+        modify_by = #{modify_by,jdbcType=BIGINT},
+        modify_date = #{modify_date,jdbcType=TIMESTAMP},
+        address = #{address,jdbcType=VARCHAR},
+        internalPhone = #{internalPhone,jdbcType=VARCHAR},
+        officePhone = #{officePhone,jdbcType=VARCHAR},
+        `state` = #{state,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

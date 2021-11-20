@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axjy.mapper.leaveGarden.IonRecordMapper">
+
+  <select id="list" resultType="com.axjy.pojo.leaveGarden.IonRecord">
+    select * from kms_ion_record as ion INNER JOIN kms_student_record as st
+    on ion.student_id = st.id
+    inner JOIN kms_garden as gar on st.garden_id = gar.id
+    <where>
+      <if test="classroomId!=null">
+        st.classroom_id=#{classroomId}
+      </if>
+      <if test="gardeId!=null and gardeId>0">
+       and ion.gardenId=#{gardeId}
+      </if>
+    </where>
+
+  </select>
+  <resultMap id="BaseResultMap" type="com.axjy.pojo.leaveGarden.IonRecord">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="student_id" jdbcType="BIGINT" property="studentId" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="leaving_date" jdbcType="TIMESTAMP" property="leavingDate" />
+    <result column="leaving_type" jdbcType="INTEGER" property="leavingType" />
+    <result column="leaving_cause" jdbcType="INTEGER" property="leavingCause" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="collect" jdbcType="DOUBLE" property="collect" />
+    <result column="premium" jdbcType="DOUBLE" property="premium" />
+    <result column="gardenId" jdbcType="INTEGER" property="gardenid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, student_id, `state`, leaving_date, leaving_type, leaving_cause, remark, `collect`, 
+    premium, gardenId
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from kms_ion_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from kms_ion_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.leaveGarden.IonRecord" useGeneratedKeys="true">
+    insert into kms_ion_record (student_id, `state`, leaving_date, 
+      leaving_type, leaving_cause, remark, 
+      `collect`, premium, gardenId
+      )
+    values (#{studentId,jdbcType=BIGINT}, #{state,jdbcType=INTEGER}, #{leavingDate,jdbcType=TIMESTAMP}, 
+      #{leavingType,jdbcType=INTEGER}, #{leavingCause,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{collect,jdbcType=DOUBLE}, #{premium,jdbcType=DOUBLE}, #{gardenid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.leaveGarden.IonRecord" useGeneratedKeys="true">
+    insert into kms_ion_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="studentId != null">
+        student_id,
+      </if>
+      <if test="state != null">
+        `state`,
+      </if>
+      <if test="leavingDate != null">
+        leaving_date,
+      </if>
+      <if test="leavingType != null">
+        leaving_type,
+      </if>
+      <if test="leavingCause != null">
+        leaving_cause,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="collect != null">
+        `collect`,
+      </if>
+      <if test="premium != null">
+        premium,
+      </if>
+      <if test="gardenid != null">
+        gardenId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="studentId != null">
+        #{studentId,jdbcType=BIGINT},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="leavingDate != null">
+        #{leavingDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leavingType != null">
+        #{leavingType,jdbcType=INTEGER},
+      </if>
+      <if test="leavingCause != null">
+        #{leavingCause,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="collect != null">
+        #{collect,jdbcType=DOUBLE},
+      </if>
+      <if test="premium != null">
+        #{premium,jdbcType=DOUBLE},
+      </if>
+      <if test="gardenid != null">
+        #{gardenid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.axjy.pojo.leaveGarden.IonRecord">
+    update kms_ion_record
+    <set>
+      <if test="studentId != null">
+        student_id = #{studentId,jdbcType=BIGINT},
+      </if>
+      <if test="state != null">
+        `state` = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="leavingDate != null">
+        leaving_date = #{leavingDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leavingType != null">
+        leaving_type = #{leavingType,jdbcType=INTEGER},
+      </if>
+      <if test="leavingCause != null">
+        leaving_cause = #{leavingCause,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="collect != null">
+        `collect` = #{collect,jdbcType=DOUBLE},
+      </if>
+      <if test="premium != null">
+        premium = #{premium,jdbcType=DOUBLE},
+      </if>
+      <if test="gardenid != null">
+        gardenId = #{gardenid,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.axjy.pojo.leaveGarden.IonRecord">
+    update kms_ion_record
+    set student_id = #{studentId,jdbcType=BIGINT},
+      `state` = #{state,jdbcType=INTEGER},
+      leaving_date = #{leavingDate,jdbcType=TIMESTAMP},
+      leaving_type = #{leavingType,jdbcType=INTEGER},
+      leaving_cause = #{leavingCause,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      `collect` = #{collect,jdbcType=DOUBLE},
+      premium = #{premium,jdbcType=DOUBLE},
+      gardenId = #{gardenid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

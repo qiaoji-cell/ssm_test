@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axjy.mapper.sys.PosGardenMapper">
+  <resultMap id="BaseResultMap" type="com.axjy.pojo.sys.PosGarden">
+    <result column="pos_id" jdbcType="BIGINT" property="posId" />
+    <result column="garden_id" jdbcType="BIGINT" property="gardenId" />
+  </resultMap>
+  <delete id="delete">
+    delete from kms_pos_garden where garden_id=#{gardenId} and pos_id in
+    <foreach collection="ids" item="posId" open="(" separator="," close=")">
+      #{posId}
+    </foreach>
+  </delete>
+  <insert id="insert" parameterType="com.axjy.pojo.sys.PosGarden">
+    insert into kms_pos_garden (pos_id, garden_id)
+    values (#{posId,jdbcType=BIGINT}, #{gardenId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.axjy.pojo.sys.PosGarden">
+    insert into kms_pos_garden
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="posId != null">
+        pos_id,
+      </if>
+      <if test="gardenId != null">
+        garden_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="posId != null">
+        #{posId,jdbcType=BIGINT},
+      </if>
+      <if test="gardenId != null">
+        #{gardenId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+</mapper>

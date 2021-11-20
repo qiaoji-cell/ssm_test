@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axjy.mapper.sys.BusinessMapper">
+  <resultMap id="BaseResultMap" type="com.axjy.pojo.sys.Business">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="business_code" jdbcType="VARCHAR" property="businessCode" />
+    <result column="make" jdbcType="VARCHAR" property="make" />
+    <result column="business_name" jdbcType="VARCHAR" property="businessName" />
+    <result column="business_short" jdbcType="VARCHAR" property="businessShort" />
+    <result column="business_enName" jdbcType="VARCHAR" property="businessEnname" />
+    <result column="trade" jdbcType="VARCHAR" property="trade" />
+    <result column="enterprise" jdbcType="VARCHAR" property="enterprise" />
+    <result column="encoded" jdbcType="BIGINT" property="encoded" />
+    <result column="telephony" jdbcType="VARCHAR" property="telephony" />
+    <result column="transmission" jdbcType="VARCHAR" property="transmission" />
+    <result column="website" jdbcType="VARCHAR" property="website" />
+    <result column="Email" jdbcType="VARCHAR" property="email" />
+    <result column="legal_person" jdbcType="VARCHAR" property="legalPerson" />
+    <result column="register" jdbcType="DATE" property="register" />
+    <result column="capital" jdbcType="DOUBLE" property="capital" />
+    <result column="staff" jdbcType="INTEGER" property="staff" />
+    <result column="state_tax" jdbcType="VARCHAR" property="stateTax" />
+    <result column="Local_tax" jdbcType="VARCHAR" property="localTax" />
+    <result column="bank" jdbcType="VARCHAR" property="bank" />
+    <result column="bank_account" jdbcType="VARCHAR" property="bankAccount" />
+    <result column="introduction" jdbcType="VARCHAR" property="introduction" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, business_code, make, business_name, business_short, business_enName, trade, enterprise, 
+    encoded, telephony, transmission, website, Email, legal_person, register, capital, 
+    staff, state_tax, Local_tax, bank, bank_account, introduction, address
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from kms_business
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from kms_business
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.sys.Business" useGeneratedKeys="true">
+    insert into kms_business (business_code, make, business_name, 
+      business_short, business_enName, trade, 
+      enterprise, encoded, telephony, 
+      transmission, website, Email, 
+      legal_person, register, capital, 
+      staff, state_tax, Local_tax, 
+      bank, bank_account, introduction, 
+      address)
+    values (#{businessCode,jdbcType=VARCHAR}, #{make,jdbcType=VARCHAR}, #{businessName,jdbcType=VARCHAR}, 
+      #{businessShort,jdbcType=VARCHAR}, #{businessEnname,jdbcType=VARCHAR}, #{trade,jdbcType=VARCHAR}, 
+      #{enterprise,jdbcType=VARCHAR}, #{encoded,jdbcType=BIGINT}, #{telephony,jdbcType=VARCHAR}, 
+      #{transmission,jdbcType=VARCHAR}, #{website,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{legalPerson,jdbcType=VARCHAR}, #{register,jdbcType=DATE}, #{capital,jdbcType=DOUBLE}, 
+      #{staff,jdbcType=INTEGER}, #{stateTax,jdbcType=VARCHAR}, #{localTax,jdbcType=VARCHAR}, 
+      #{bank,jdbcType=VARCHAR}, #{bankAccount,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.sys.Business" useGeneratedKeys="true">
+    insert into kms_business
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="businessCode != null">
+        business_code,
+      </if>
+      <if test="make != null">
+        make,
+      </if>
+      <if test="businessName != null">
+        business_name,
+      </if>
+      <if test="businessShort != null">
+        business_short,
+      </if>
+      <if test="businessEnname != null">
+        business_enName,
+      </if>
+      <if test="trade != null">
+        trade,
+      </if>
+      <if test="enterprise != null">
+        enterprise,
+      </if>
+      <if test="encoded != null">
+        encoded,
+      </if>
+      <if test="telephony != null">
+        telephony,
+      </if>
+      <if test="transmission != null">
+        transmission,
+      </if>
+      <if test="website != null">
+        website,
+      </if>
+      <if test="email != null">
+        Email,
+      </if>
+      <if test="legalPerson != null">
+        legal_person,
+      </if>
+      <if test="register != null">
+        register,
+      </if>
+      <if test="capital != null">
+        capital,
+      </if>
+      <if test="staff != null">
+        staff,
+      </if>
+      <if test="stateTax != null">
+        state_tax,
+      </if>
+      <if test="localTax != null">
+        Local_tax,
+      </if>
+      <if test="bank != null">
+        bank,
+      </if>
+      <if test="bankAccount != null">
+        bank_account,
+      </if>
+      <if test="introduction != null">
+        introduction,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="businessCode != null">
+        #{businessCode,jdbcType=VARCHAR},
+      </if>
+      <if test="make != null">
+        #{make,jdbcType=VARCHAR},
+      </if>
+      <if test="businessName != null">
+        #{businessName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessShort != null">
+        #{businessShort,jdbcType=VARCHAR},
+      </if>
+      <if test="businessEnname != null">
+        #{businessEnname,jdbcType=VARCHAR},
+      </if>
+      <if test="trade != null">
+        #{trade,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprise != null">
+        #{enterprise,jdbcType=VARCHAR},
+      </if>
+      <if test="encoded != null">
+        #{encoded,jdbcType=BIGINT},
+      </if>
+      <if test="telephony != null">
+        #{telephony,jdbcType=VARCHAR},
+      </if>
+      <if test="transmission != null">
+        #{transmission,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null">
+        #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPerson != null">
+        #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="register != null">
+        #{register,jdbcType=DATE},
+      </if>
+      <if test="capital != null">
+        #{capital,jdbcType=DOUBLE},
+      </if>
+      <if test="staff != null">
+        #{staff,jdbcType=INTEGER},
+      </if>
+      <if test="stateTax != null">
+        #{stateTax,jdbcType=VARCHAR},
+      </if>
+      <if test="localTax != null">
+        #{localTax,jdbcType=VARCHAR},
+      </if>
+      <if test="bank != null">
+        #{bank,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null">
+        #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null">
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.axjy.pojo.sys.Business">
+    update kms_business
+    <set>
+      <if test="businessCode != null">
+        business_code = #{businessCode,jdbcType=VARCHAR},
+      </if>
+      <if test="make != null">
+        make = #{make,jdbcType=VARCHAR},
+      </if>
+      <if test="businessName != null">
+        business_name = #{businessName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessShort != null">
+        business_short = #{businessShort,jdbcType=VARCHAR},
+      </if>
+      <if test="businessEnname != null">
+        business_enName = #{businessEnname,jdbcType=VARCHAR},
+      </if>
+      <if test="trade != null">
+        trade = #{trade,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprise != null">
+        enterprise = #{enterprise,jdbcType=VARCHAR},
+      </if>
+      <if test="encoded != null">
+        encoded = #{encoded,jdbcType=BIGINT},
+      </if>
+      <if test="telephony != null">
+        telephony = #{telephony,jdbcType=VARCHAR},
+      </if>
+      <if test="transmission != null">
+        transmission = #{transmission,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null">
+        website = #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        Email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPerson != null">
+        legal_person = #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="register != null">
+        register = #{register,jdbcType=DATE},
+      </if>
+      <if test="capital != null">
+        capital = #{capital,jdbcType=DOUBLE},
+      </if>
+      <if test="staff != null">
+        staff = #{staff,jdbcType=INTEGER},
+      </if>
+      <if test="stateTax != null">
+        state_tax = #{stateTax,jdbcType=VARCHAR},
+      </if>
+      <if test="localTax != null">
+        Local_tax = #{localTax,jdbcType=VARCHAR},
+      </if>
+      <if test="bank != null">
+        bank = #{bank,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null">
+        bank_account = #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null">
+        introduction = #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.axjy.pojo.sys.Business">
+    update kms_business
+    set business_code = #{businessCode,jdbcType=VARCHAR},
+      make = #{make,jdbcType=VARCHAR},
+      business_name = #{businessName,jdbcType=VARCHAR},
+      business_short = #{businessShort,jdbcType=VARCHAR},
+      business_enName = #{businessEnname,jdbcType=VARCHAR},
+      trade = #{trade,jdbcType=VARCHAR},
+      enterprise = #{enterprise,jdbcType=VARCHAR},
+      encoded = #{encoded,jdbcType=BIGINT},
+      telephony = #{telephony,jdbcType=VARCHAR},
+      transmission = #{transmission,jdbcType=VARCHAR},
+      website = #{website,jdbcType=VARCHAR},
+      Email = #{email,jdbcType=VARCHAR},
+      legal_person = #{legalPerson,jdbcType=VARCHAR},
+      register = #{register,jdbcType=DATE},
+      capital = #{capital,jdbcType=DOUBLE},
+      staff = #{staff,jdbcType=INTEGER},
+      state_tax = #{stateTax,jdbcType=VARCHAR},
+      Local_tax = #{localTax,jdbcType=VARCHAR},
+      bank = #{bank,jdbcType=VARCHAR},
+      bank_account = #{bankAccount,jdbcType=VARCHAR},
+      introduction = #{introduction,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

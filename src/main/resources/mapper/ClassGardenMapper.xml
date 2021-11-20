@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axjy.mapper.base.ClassGardenMapper">
+  <delete id="delRelation" >
+    delete from kms_class_garden
+    where garden_id = #{classGarden.gardenId}
+      and class_id = #{classGarden.classId}
+  </delete>
+
+  <insert id="addRelation">
+    insert into kms_class_garden (class_id, garden_id) values
+    (#{classGarden.classId},#{classGarden.gardenId})
+  </insert>
+
+  <resultMap id="BaseResultMap" type="com.axjy.pojo.base.ClassGarden">
+    <result column="class_id" jdbcType="BIGINT" property="classId" />
+    <result column="garden_id" jdbcType="BIGINT" property="gardenId" />
+  </resultMap>
+  <insert id="insert" parameterType="com.axjy.pojo.base.ClassGarden">
+    insert into kms_class_garden (class_id, garden_id)
+    values (#{classId,jdbcType=BIGINT}, #{gardenId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.axjy.pojo.base.ClassGarden">
+    insert into kms_class_garden
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="classId != null">
+        class_id,
+      </if>
+      <if test="gardenId != null">
+        garden_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="classId != null">
+        #{classId,jdbcType=BIGINT},
+      </if>
+      <if test="gardenId != null">
+        #{gardenId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+</mapper>

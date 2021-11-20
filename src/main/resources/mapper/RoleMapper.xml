@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axjy.mapper.sys.RoleMapper">
+
+  <resultMap id="roleRm" type="com.axjy.pojo.sys.Role">
+    <id column="rId" property="id"></id>
+    <result column="rName" property="roleName"></result>
+  </resultMap>
+  <select id="findByUid" resultMap="roleRm">
+    select r.role_name rName,r.id rId from kms_user_role ur left join kms_role r on ur.role_id = r.id
+    where ur.user_id = #{userId}
+  </select>
+  <select id="findAllList" resultType="com.axjy.pojo.sys.Role">
+    select * from kms_role
+    <where>
+    <if test="gardenId != null">
+      and id in (
+      select role_id from kms_role_garden where garden_id = #{vo.gardenId}
+      )
+    </if>
+    </where>
+  </select>
+  <select id="findByName" resultType="java.lang.Integer">
+    select count(0) from kms_role where role_name =  #{name} and id in (
+        select role_id from kms_role_garden where garden_id = #{gardenId}
+      )
+      <if test="roleId != null">
+        and id != #{roleId}
+      </if>
+  </select>
+
+  <select id="findAllRole" resultType="com.axjy.pojo.sys.Role">
+    select * from kms_role
+    <where>
+      <if test="vo.keyword != null and vo.keyword!= ''">
+        and role_name like concat('%',#{vo.keyword},'%')
+      </if>
+      <if test="vo.field!=null">
+        and ${vo.field} like concat('%',#{vo.value},'%')
+      </if>
+      <if test="vo.gardenId != null">
+        and id in (
+            select role_id from kms_role_garden where garden_id = #{vo.gardenId}
+        )
+      </if>
+
+    </where>
+  </select>
+
+  <delete id="batchDel">
+    delete from kms_role where id in
+    <foreach collection="array" item="id" open="(" separator="," close=")">
+        #{id}
+    </foreach>
+  </delete>
+  <resultMap id="BaseResultMap" type="com.axjy.pojo.sys.Role">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="role_code" jdbcType="VARCHAR" property="roleCode" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="role_remark" jdbcType="VARCHAR" property="roleRemark" />
+    <result column="created_by" jdbcType="BIGINT" property="createdBy" />
+    <result column="creation_date" jdbcType="TIMESTAMP" property="creationDate" />
+    <result column="modify_by" jdbcType="BIGINT" property="modifyBy" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="garden_id" jdbcType="BIGINT" property="gardenId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, role_code, role_name, role_remark, created_by, creation_date, modify_by, modify_date, 
+    garden_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from kms_role
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from kms_role
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.sys.Role" useGeneratedKeys="true">
+    insert into kms_role (role_code, role_name, role_remark, 
+      created_by, creation_date, modify_by, 
+      modify_date)
+    values (#{roleCode,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, #{roleRemark,jdbcType=VARCHAR}, 
+      #{createdBy,jdbcType=BIGINT}, #{creationDate,jdbcType=TIMESTAMP}, #{modifyBy,jdbcType=BIGINT}, 
+      #{modifyDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.sys.Role" useGeneratedKeys="true">
+    insert into kms_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleCode != null">
+        role_code,
+      </if>
+      <if test="roleName != null">
+        role_name,
+      </if>
+      <if test="roleRemark != null">
+        role_remark,
+      </if>
+      <if test="createdBy != null">
+        created_by,
+      </if>
+      <if test="creationDate != null">
+        creation_date,
+      </if>
+      <if test="modifyBy != null">
+        modify_by,
+      </if>
+      <if test="modifyDate != null">
+        modify_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleCode != null">
+        #{roleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null">
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleRemark != null">
+        #{roleRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=BIGINT},
+      </if>
+      <if test="creationDate != null">
+        #{creationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null">
+        #{modifyBy,jdbcType=BIGINT},
+      </if>
+      <if test="modifyDate != null">
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.axjy.pojo.sys.Role">
+    update kms_role
+    <set>
+      <if test="roleCode != null">
+        role_code = #{roleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null">
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleRemark != null">
+        role_remark = #{roleRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null">
+        created_by = #{createdBy,jdbcType=BIGINT},
+      </if>
+      <if test="creationDate != null">
+        creation_date = #{creationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null">
+        modify_by = #{modifyBy,jdbcType=BIGINT},
+      </if>
+      <if test="modifyDate != null">
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.axjy.pojo.sys.Role">
+    update kms_role
+    set role_code = #{roleCode,jdbcType=VARCHAR},
+      role_name = #{roleName,jdbcType=VARCHAR},
+      role_remark = #{roleRemark,jdbcType=VARCHAR},
+      created_by = #{createdBy,jdbcType=BIGINT},
+      creation_date = #{creationDate,jdbcType=TIMESTAMP},
+      modify_by = #{modifyBy,jdbcType=BIGINT},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

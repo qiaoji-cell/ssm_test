@@ -1,0 +1,32 @@
+!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>邮件模板</title>
+</head>
+<body>
+<p>
+    亲爱的小伙伴<span th:text="${name}"></span>
+</p>
+<p>
+    &emsp;&emsp; &emsp;&emsp;您好！
+</p>
+<p>
+    愿我们的员工像兄弟姐妹一样慎密团结,愿我们的伴侣像青松一样长青,愿我们的糊口像蜂蜜般甜美完竣。祝你生日快乐!
+    你的金额不足。
+</p>
+<p>
+   <table width="200" border="1">
+     <tr>
+         <th>成员</th>
+     </tr>
+    <tr th:each="account:${list}">
+        <td th:text="${account}"></td>
+    </tr>
+</table>
+</p>
+</body>
+</html>

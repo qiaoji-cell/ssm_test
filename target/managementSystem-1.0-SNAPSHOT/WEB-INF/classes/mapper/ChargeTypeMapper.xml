@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axjy.mapper.ChargeTypeMapper">
+
+  <select id="findAll" resultType="com.axjy.pojo.ChargeType">
+    select * from kms_chargetype
+  </select>
+
+
+  <resultMap id="BaseResultMap" type="com.axjy.pojo.ChargeType">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="returnType" jdbcType="VARCHAR" property="chargeType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, returnType
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from kms_chargetype
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from kms_chargetype
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.ChargeType" useGeneratedKeys="true">
+    insert into kms_chargetype (chargeType)
+    values (#{returntype,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.ChargeType" useGeneratedKeys="true">
+    insert into kms_chargetype
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="returntype != null">
+        returnType,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="returntype != null">
+        #{returntype,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.axjy.pojo.ChargeType">
+    update kms_chargetype
+    <set>
+      <if test="returntype != null">
+        returnType = #{returntype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.axjy.pojo.ChargeType">
+    update kms_chargetype
+    set chargeType = #{returntype,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

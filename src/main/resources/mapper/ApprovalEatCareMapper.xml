@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axjy.mapper.generalCharge.ApprovalEatCareMapper">
+  <update id="updateState">
+    update kms_approval_eat_care set approval_state = #{state} where approval_stu_id in
+              <foreach collection="stuIds" item="stuId" open="(" separator="," close=")">
+                    #{stuId}
+              </foreach>
+  </update>
+  <select id="findByStuId" resultType="java.lang.Integer">
+    select count(0) from kms_approval_eat_care where approval_stu_id = #{stuId}
+  </select>
+
+  <insert id="batchInsert">
+    insert into kms_approval_eat_care
+        (approval_stu_id,approval_change_remark,apply_datetime,
+         approval_proposer,approval_person,approval_state)
+         values
+    <foreach collection="eatCare.stuIds" item="stuId" separator=",">
+        (#{stuId},#{eatCare.approvalChangeRemark},#{eatCare.applyDatetime},
+         #{eatCare.approvalProposer},#{eatCare.approvalPerson}
+         ,#{eatCare.approvalState})
+    </foreach>
+  </insert>
+  <update id="upByStuId"  >
+    update kms_approval_eat_care
+    <set>
+      <if test="approvalStuId != null">
+        approval_stu_id = #{approvalStuId,jdbcType=BIGINT},
+      </if>
+      <if test="approvalChangeRecord != null">
+        approval_change_record = #{approvalChangeRecord,jdbcType=BIGINT},
+      </if>
+      <if test="approvalChangeRemark != null">
+          approval_change_remark = #{approvalChangeRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalProposer != null">
+        approval_proposer = #{approvalProposer,jdbcType=BIGINT},
+      </if>
+      <if test="approvalState != null">
+        approval_state = #{approvalState,jdbcType=INTEGER},
+      </if>
+      <if test="approvalPerson != null">
+        approval_person = #{approvalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDatetime != null">
+        apply_datetime = #{applyDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where approval_stu_id =  #{approvalStuId,jdbcType=BIGINT}
+  </update>
+
+
+
+
+  <resultMap id="BaseResultMap" type="com.axjy.pojo.generalCharge.ApprovalEatCare">
+    <id column="approval_id" jdbcType="BIGINT" property="approvalId" />
+    <result column="approval_stu_id" jdbcType="BIGINT" property="approvalStuId" />
+    <result column="approval_change_record" jdbcType="BIGINT" property="approvalChangeRecord" />
+    <result column="approval_change_remark" jdbcType="VARCHAR" property="approvalChangeRemark" />
+    <result column="approval_proposer" jdbcType="BIGINT" property="approvalProposer" />
+    <result column="approval_state" jdbcType="INTEGER" property="approvalState" />
+    <result column="approval_person" jdbcType="VARCHAR" property="approvalPerson" />
+    <result column="apply_datetime" jdbcType="TIMESTAMP" property="applyDatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    approval_id, approval_stu_id, approval_change_record, approval_change_remark, approval_proposer, 
+    approval_state, approval_person, apply_datetime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from kms_approval_eat_care
+    where approval_id = #{approvalId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from kms_approval_eat_care
+    where approval_id = #{approvalId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="approval_id" keyProperty="approvalId" parameterType="com.axjy.pojo.generalCharge.ApprovalEatCare" useGeneratedKeys="true">
+    insert into kms_approval_eat_care (approval_stu_id, approval_change_record, 
+      approval_change_remark, approval_proposer, 
+      approval_state, approval_person, apply_datetime
+      )
+    values (#{approvalStuId,jdbcType=BIGINT}, #{approvalChangeRecord,jdbcType=BIGINT}, 
+      #{approvalChangeRemark,jdbcType=VARCHAR}, #{approvalProposer,jdbcType=BIGINT}, 
+      #{approvalState,jdbcType=INTEGER}, #{approvalPerson,jdbcType=VARCHAR}, #{applyDatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="approval_id" keyProperty="approvalId" parameterType="com.axjy.pojo.generalCharge.ApprovalEatCare" useGeneratedKeys="true">
+    insert into kms_approval_eat_care
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="approvalStuId != null">
+        approval_stu_id,
+      </if>
+      <if test="approvalChangeRecord != null">
+        approval_change_record,
+      </if>
+      <if test="approvalChangeRemark != null">
+        approval_change_remark,
+      </if>
+      <if test="approvalProposer != null">
+        approval_proposer,
+      </if>
+      <if test="approvalState != null">
+        approval_state,
+      </if>
+      <if test="approvalPerson != null">
+        approval_person,
+      </if>
+      <if test="applyDatetime != null">
+        apply_datetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="approvalStuId != null">
+        #{approvalStuId,jdbcType=BIGINT},
+      </if>
+      <if test="approvalChangeRecord != null">
+        #{approvalChangeRecord,jdbcType=BIGINT},
+      </if>
+      <if test="approvalChangeRemark != null">
+        #{approvalChangeRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalProposer != null">
+        #{approvalProposer,jdbcType=BIGINT},
+      </if>
+      <if test="approvalState != null">
+        #{approvalState,jdbcType=INTEGER},
+      </if>
+      <if test="approvalPerson != null">
+        #{approvalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDatetime != null">
+        #{applyDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.axjy.pojo.generalCharge.ApprovalEatCare">
+    update kms_approval_eat_care
+    <set>
+      <if test="approvalStuId != null">
+        approval_stu_id = #{approvalStuId,jdbcType=BIGINT},
+      </if>
+      <if test="approvalChangeRecord != null">
+        approval_change_record = #{approvalChangeRecord,jdbcType=BIGINT},
+      </if>
+      <if test="approvalChangeRemark != null">
+        approval_change_remark = #{approvalChangeRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalProposer != null">
+        approval_proposer = #{approvalProposer,jdbcType=BIGINT},
+      </if>
+      <if test="approvalState != null">
+        approval_state = #{approvalState,jdbcType=INTEGER},
+      </if>
+      <if test="approvalPerson != null">
+        approval_person = #{approvalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDatetime != null">
+        apply_datetime = #{applyDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where approval_id = #{approvalId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.axjy.pojo.generalCharge.ApprovalEatCare">
+    update kms_approval_eat_care
+    set approval_stu_id = #{approvalStuId,jdbcType=BIGINT},
+      approval_change_record = #{approvalChangeRecord,jdbcType=BIGINT},
+      approval_change_remark = #{approvalChangeRemark,jdbcType=VARCHAR},
+      approval_proposer = #{approvalProposer,jdbcType=BIGINT},
+      approval_state = #{approvalState,jdbcType=INTEGER},
+      approval_person = #{approvalPerson,jdbcType=VARCHAR},
+      apply_datetime = #{applyDatetime,jdbcType=TIMESTAMP}
+    where approval_id = #{approvalId,jdbcType=BIGINT}
+  </update>
+</mapper>

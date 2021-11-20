@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axjy.mapper.generalCharge.GrooveMapper">
+
+
+
+  <select id="huoshi" resultType="java.lang.Double">
+    select sum(univalence) from kms_groove
+    <where>
+      <if test="gardenId>0">
+        and garden_id=#{gardenId}
+      </if>
+      and groove_name = '伙食费A'
+    </where>
+  </select>
+  <select id="jiaoCai" resultType="java.lang.Double">
+    select sum(univalence) from kms_groove
+    <where>
+      <if test="gardenId>0">
+        garden_id=#{gardenId}
+      </if>
+      and groove_name = '教材费'
+    </where>
+  </select>
+
+  <select id="weisheng" resultType="java.lang.Double">
+    select sum(univalence) from kms_groove
+    <where>
+      <if test="gardenId>0">
+        and garden_id=#{gardenId}
+      </if>
+      and groove_name = '卫生费'
+    </where>
+  </select>
+
+  <select id="yuanfu" resultType="java.lang.Double">
+    select sum(univalence) from kms_groove
+    <where>
+      <if test="gardenId>0">
+        and garden_id=#{gardenId}
+      </if>
+      and groove_name = '园服费'
+    </where>
+  </select>
+
+  <select id="zhanwei" resultType="java.lang.Double">
+    select sum(univalence) from kms_groove
+    <where>
+      <if test="gardenId>0">
+        and garden_id=#{gardenId}
+      </if>
+      and  groove_name = '占位费'
+    </where>
+  </select>
+
+
+
+
+  <select id="findById" resultType="Groove">
+    select * from kms_groove where id = #{id}
+  </select>
+  <insert id="batchAdd">
+    insert into kms_groove values
+                             (default,'保育费A',1,1,180,1,1,0,0,0,'2013-8-11',default,#{gardenId}),
+                             (default,'伙食费A',2,2,12,3,1,10,0,0,'2013-8-11',default,#{gardenId}),
+                             (default,'孤儿保育费',1,1,0,1,1,0,0,0,'2013-8-11',default,#{gardenId}),
+                             (default,'孤儿伙食费',2,2,0,3,1,0,0,0,'2013-8-11',default,#{gardenId}),
+
+                             (default,'床上用品',4,3,300,1,1,0,0,0,'2013-9-11',default,#{gardenId}),
+                             (default,'教材费',4,3,80,1,1,0,0,0,'2013-9-11',default,#{gardenId}),
+                             (default,'体检费',4,3,240,1,1,0,0,0,'2013-9-11',default,#{gardenId}),
+                             (default,'卫生费',1,1,100,2,1,0,0,0,'2013-9-11',default,#{gardenId}),
+
+                             (default,'温控费',4,3,240,1,1,0,0,0,'2013-9-11',default,#{gardenId}),
+                             (default,'园服费',4,1,100,2,1,0,0,0,'2013-9-11',default,#{gardenId}),
+                             (default,'占位费',5,3,500,1,1,0,0,0,'2013-9-11',default,#{gardenId});
+  </insert>
+  <select id="findAllOtherFee" resultMap="grooveRm">
+    select
+      c.costName costName,c.id categoryId,g.*
+    from kms_groove g
+           left join kms_cost_category c on g.cost_category = c.id
+    where garden_id = #{gardenId} and g.cost_type = 3
+
+  </select>
+  <select id="findAllWithDescByGardenId" resultType="Groove">
+    select  g.* from kms_groove g
+     left join kms_cost_category cg on g.cost_category = cg.id
+    where garden_id = #{param1} and cost_category = #{param2}
+  </select>
+
+  <resultMap id="grooveRm" type="Groove">
+    <id column="id" property="id"></id>
+    <result property="category.id" column="categoryId"></result>
+    <result property="category.costname" column="costName"></result>
+  </resultMap>
+  <select id="findAllByGardenId" resultMap="grooveRm">
+    select k.*,cc.id categoryId,cc.costName costName from kms_groove k
+        left join kms_cost_category cc on k.cost_category = cc.id
+        <where>
+          <if test="vo.gardenId!=null">
+            garden_id = #{vo.gardenId}
+          </if>
+          <if test="vo.costCategory!=null">
+            and cost_category = #{vo.costCategory}
+          </if>
+          <if test="vo.costType!=null">
+            and cost_type = #{vo.costType}
+          </if>
+        </where>
+  </select>
+  <resultMap id="BaseResultMap" type="com.axjy.pojo.generalCharge.Groove">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="groove_name" jdbcType="VARCHAR" property="grooveName" />
+    <result column="cost_category" jdbcType="INTEGER" property="costCategory" />
+    <result column="cost_type" jdbcType="INTEGER" property="costType" />
+    <result column="univalence" jdbcType="DOUBLE" property="univalence" />
+    <result column="univalence_type" jdbcType="INTEGER" property="univalenceType" />
+    <result column="pay_type" jdbcType="INTEGER" property="payType" />
+    <result column="refund" jdbcType="DOUBLE" property="refund" />
+    <result column="alone" jdbcType="INTEGER" property="alone" />
+    <result column="absence" jdbcType="INTEGER" property="absence" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="cost_remark" jdbcType="VARCHAR" property="costRemark" />
+    <result column="garden_id" jdbcType="BIGINT" property="gardenId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, groove_name, cost_category, cost_type, univalence, univalence_type, pay_type,
+    refund, alone, absence, create_date, cost_remark, garden_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from kms_groove
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from kms_groove
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.generalCharge.Groove" useGeneratedKeys="true">
+    insert into kms_groove (groove_name, cost_category, cost_type,
+                            univalence, univalence_type, pay_type,
+                            refund, alone, absence,
+                            create_date, cost_remark, garden_id
+    )
+    values (#{grooveName,jdbcType=VARCHAR}, #{costCategory,jdbcType=INTEGER}, #{costType,jdbcType=INTEGER},
+            #{univalence,jdbcType=DOUBLE}, #{univalenceType,jdbcType=INTEGER}, #{payType,jdbcType=INTEGER},
+            #{refund,jdbcType=DOUBLE}, #{alone,jdbcType=INTEGER}, #{absence,jdbcType=INTEGER},
+            #{createDate,jdbcType=TIMESTAMP}, #{costRemark,jdbcType=VARCHAR}, #{gardenId,jdbcType=BIGINT}
+           )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.generalCharge.Groove" useGeneratedKeys="true">
+    insert into kms_groove
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="grooveName != null">
+        groove_name,
+      </if>
+      <if test="costCategory != null">
+        cost_category,
+      </if>
+      <if test="costType != null">
+        cost_type,
+      </if>
+      <if test="univalence != null">
+        univalence,
+      </if>
+      <if test="univalenceType != null">
+        univalence_type,
+      </if>
+      <if test="payType != null">
+        pay_type,
+      </if>
+      <if test="refund != null">
+        refund,
+      </if>
+      <if test="alone != null">
+        alone,
+      </if>
+      <if test="absence != null">
+        absence,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="costRemark != null">
+        cost_remark,
+      </if>
+      <if test="gardenId != null">
+        garden_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="grooveName != null">
+        #{grooveName,jdbcType=VARCHAR},
+      </if>
+      <if test="costCategory != null">
+        #{costCategory,jdbcType=INTEGER},
+      </if>
+      <if test="costType != null">
+        #{costType,jdbcType=INTEGER},
+      </if>
+      <if test="univalence != null">
+        #{univalence,jdbcType=DOUBLE},
+      </if>
+      <if test="univalenceType != null">
+        #{univalenceType,jdbcType=INTEGER},
+      </if>
+      <if test="payType != null">
+        #{payType,jdbcType=INTEGER},
+      </if>
+      <if test="refund != null">
+        #{refund,jdbcType=DOUBLE},
+      </if>
+      <if test="alone != null">
+        #{alone,jdbcType=INTEGER},
+      </if>
+      <if test="absence != null">
+        #{absence,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="costRemark != null">
+        #{costRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="gardenId != null">
+        #{gardenId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.axjy.pojo.generalCharge.Groove">
+    update kms_groove
+    <set>
+      <if test="grooveName != null">
+        groove_name = #{grooveName,jdbcType=VARCHAR},
+      </if>
+      <if test="costCategory != null">
+        cost_category = #{costCategory,jdbcType=INTEGER},
+      </if>
+      <if test="costType != null">
+        cost_type = #{costType,jdbcType=INTEGER},
+      </if>
+      <if test="univalence != null">
+        univalence = #{univalence,jdbcType=DOUBLE},
+      </if>
+      <if test="univalenceType != null">
+        univalence_type = #{univalenceType,jdbcType=INTEGER},
+      </if>
+      <if test="payType != null">
+        pay_type = #{payType,jdbcType=INTEGER},
+      </if>
+      <if test="refund != null">
+        refund = #{refund,jdbcType=DOUBLE},
+      </if>
+      <if test="alone != null">
+        alone = #{alone,jdbcType=INTEGER},
+      </if>
+      <if test="absence != null">
+        absence = #{absence,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="costRemark != null">
+        cost_remark = #{costRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="gardenId != null">
+        garden_id = #{gardenId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.axjy.pojo.generalCharge.Groove">
+    update kms_groove
+    set groove_name = #{grooveName,jdbcType=VARCHAR},
+        cost_category = #{costCategory,jdbcType=INTEGER},
+        cost_type = #{costType,jdbcType=INTEGER},
+        univalence = #{univalence,jdbcType=DOUBLE},
+        univalence_type = #{univalenceType,jdbcType=INTEGER},
+        pay_type = #{payType,jdbcType=INTEGER},
+        refund = #{refund,jdbcType=DOUBLE},
+        alone = #{alone,jdbcType=INTEGER},
+        absence = #{absence,jdbcType=INTEGER},
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+        cost_remark = #{costRemark,jdbcType=VARCHAR},
+        garden_id = #{gardenId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

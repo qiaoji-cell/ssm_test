@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axjy.mapper.sys.PosMapper">
+  <select id="findAll" resultType="com.axjy.pojo.sys.Pos">
+    select * from kms_pos
+    <where>
+      <if test="field!=null">${field} like concat('%',#{value},'%')</if>
+        and id in(
+        select pos_id from kms_pos_garden where garden_id = #{gardenId}
+      )
+    </where>
+
+  </select>
+
+  <select id="findByName" resultType="com.axjy.pojo.sys.Pos">
+    select * from kms_pos
+    <where>
+      <if test="name != null">
+        pos_name = #{name}
+      </if>
+     <if test="gardenId != null">
+       and id in(
+       select pos_id from kms_pos_garden where garden_id = #{gardenId}
+       )
+     </if>
+      <if test="posId!=null">
+        and id != #{posId}
+      </if>
+    </where>
+  </select>
+
+
+  <resultMap id="BaseResultMap" type="com.axjy.pojo.sys.Pos">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="pos_name" jdbcType="VARCHAR" property="posName" />
+    <result column="pos_desc" jdbcType="VARCHAR" property="posDesc" />
+    <result column="pos_duty" jdbcType="VARCHAR" property="posDuty" />
+    <result column="garden_id" jdbcType="BIGINT" property="gardenId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, pos_name, pos_desc, pos_duty, garden_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from kms_pos
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from kms_pos
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="batchDel">
+    delete from kms_pos where id in
+    <foreach collection="array" item="id" open="(" close=")" separator=",">
+      #{id}
+    </foreach>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.sys.Pos" useGeneratedKeys="true">
+    insert into kms_pos (pos_name, pos_desc, pos_duty)
+    values (#{posName,jdbcType=VARCHAR}, #{posDesc,jdbcType=VARCHAR}, #{posDuty,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.sys.Pos" useGeneratedKeys="true">
+    insert into kms_pos
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="posName != null">
+        pos_name,
+      </if>
+      <if test="posDesc != null">
+        pos_desc,
+      </if>
+      <if test="posDuty != null">
+        pos_duty,
+      </if>
+      <if test="gardenId != null">
+        garden_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="posName != null">
+        #{posName,jdbcType=VARCHAR},
+      </if>
+      <if test="posDesc != null">
+        #{posDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="posDuty != null">
+        #{posDuty,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.axjy.pojo.sys.Pos">
+    update kms_pos
+    <set>
+      <if test="posName != null">
+        pos_name = #{posName,jdbcType=VARCHAR},
+      </if>
+      <if test="posDesc != null">
+        pos_desc = #{posDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="posDuty != null">
+        pos_duty = #{posDuty,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.axjy.pojo.sys.Pos">
+    update kms_pos
+    set pos_name = #{posName,jdbcType=VARCHAR},
+      pos_desc = #{posDesc,jdbcType=VARCHAR},
+      pos_duty = #{posDuty,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axjy.mapper.common.ClassMapper">
+  <select id="find" resultType="com.axjy.pojo.base.Class">
+    SELECT * from kms_class where garden_id = #{gardenId} limit 1
+  </select>
+  <select id="findStuIdsByClassId" resultType="java.lang.Long">
+    select sr.id from kms_student_record sr
+        left join kms_class c  on sr.classroom_id = c.id
+        left join kms_grade g  on g.id = c.gradeId
+    where sr.garden_id = #{param1} and c.id = #{param2}
+  </select>
+  <resultMap id="treeRm" type="com.axjy.vo.generalCharge.AboutVo">
+    <id column="stuId" property="id"></id>
+    <result column="stuName" property="title"></result>
+    <result column="gender" property="gender"></result>
+  </resultMap>
+  <select id="findEachClassChildTree" resultMap="treeRm">
+    select sr.id stuId,sr.gender gender,concat(sr.student_code,'-',sr.student_name) stuName
+    from kms_student_record sr
+    left join kms_class c  on sr.classroom_id = c.id
+    left join kms_grade g  on g.id = c.gradeId
+    where sr.garden_id = #{param1} and c.id = #{param2}
+  </select>
+  <delete id="batchDelClassByGardenId">
+    delete from kms_class where garden_id in
+    <foreach collection="array" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
+  <insert id="batchAdd">
+    insert into kms_class(className,gradeId,garden_id)
+    values
+    ('托一班',1,#{gardenId})
+         ,('预报名班',2,#{gardenId})
+         ,('小一班',3,#{gardenId})
+         ,('小二班',4,#{gardenId})
+         ,('中一班',5,#{gardenId})
+         ,('中二班',6,#{gardenId})
+         ,('大一班',7,#{gardenId});
+  </insert>
+  <resultMap id="gardenClassRm" type="com.axjy.pojo.base.Class">
+    <id column="id" property="id"></id>
+    <result column="className" property="classname"></result>
+  </resultMap>
+
+  <select id="findGardenClass" resultMap="gardenClassRm">
+    select t1.id id,CONCAT('【',garden_name,'】',className) className
+    from kms_class t1
+           left join kms_garden t2 on t2.id = t1.garden_id
+    where garden_id
+  </select>
+
+
+  <select id="findAll" resultType="com.axjy.pojo.base.Class">
+    select
+     t1.* from kms_class t1
+     left join kms_garden t2 on t2.id = t1.garden_id
+    <where>
+        t2.id = #{gardenId}
+    </where>
+  </select>
+
+
+  <resultMap id="BaseResultMap" type="com.axjy.pojo.base.Class">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="className" jdbcType="VARCHAR" property="classname" />
+    <result column="gradeId" jdbcType="BIGINT" property="gradeid" />
+    <result column="garden_id" jdbcType="BIGINT" property="gardenId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, className, gradeId, garden_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from kms_class
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from kms_class
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.base.Class" useGeneratedKeys="true">
+    insert into kms_class (className, gradeId, garden_id
+    )
+    values (#{classname,jdbcType=VARCHAR}, #{gradeid,jdbcType=BIGINT}, #{gardenId,jdbcType=BIGINT}
+           )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.base.Class" useGeneratedKeys="true">
+    insert into kms_class
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="classname != null">
+        className,
+      </if>
+      <if test="gradeid != null">
+        gradeId,
+      </if>
+      <if test="gardenId != null">
+        garden_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="classname != null">
+        #{classname,jdbcType=VARCHAR},
+      </if>
+      <if test="gradeid != null">
+        #{gradeid,jdbcType=BIGINT},
+      </if>
+      <if test="gardenId != null">
+        #{gardenId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.axjy.pojo.base.Class">
+    update kms_class
+    <set>
+      <if test="classname != null">
+        className = #{classname,jdbcType=VARCHAR},
+      </if>
+      <if test="gradeid != null">
+        gradeId = #{gradeid,jdbcType=BIGINT},
+      </if>
+      <if test="gardenId != null">
+        garden_id = #{gardenId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.axjy.pojo.base.Class">
+    update kms_class
+    set className = #{classname,jdbcType=VARCHAR},
+        gradeId = #{gradeid,jdbcType=BIGINT},
+        garden_id = #{gardenId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

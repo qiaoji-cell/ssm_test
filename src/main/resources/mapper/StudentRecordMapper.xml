@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axjy.mapper.child.StudentRecordMapper">
+
+  <select id="searchStatus" resultType="com.axjy.pojo.child.KmsStudentRecord">
+    select * from kms_student_record as record
+    INNER JOIN kms_grade as grade on record.grade_id = grade.id
+    inner JOIN kms_class as class on class.id = record.classroom_id
+    INNER JOIN kms_attendance_state as state on state.id =  record.status_id
+    inner join kms_garden as gar on record.garden_id = gar.id
+    <where>
+
+      <if test="classroomId!=null">
+        and   record.classroom_id=#{classroomId}
+      </if>
+      <if test="statusId!=null">
+        and  record.status_id =#{statusId}
+      </if>
+      <if test="gardenId!=null and gardenId>0">
+        and record.garden_id = #{gardenId}
+      </if>
+    </where>
+  </select>
+
+
+  <select id="recordCount" resultType="java.lang.Integer">
+    select count(*) from kms_student_record
+    <where>
+      <if test="gardenId>0">
+        garden_id=#{gardenId}
+      </if>
+    </where>
+  </select>
+  <!--1月到12月-->
+  <select id="yiyue" resultType="java.lang.Integer">
+    select count(*) from kms_student_record
+    where garden_id =1 and YEAR(create_date)='2021' and MONTH(create_date)='01'
+  </select>
+  <select id="eryue" resultType="java.lang.Integer">
+    select count(*) from kms_student_record
+    where garden_id =1 and YEAR(create_date)='2021' and MONTH(create_date)='02'
+  </select>
+
+  <select id="sanyue" resultType="java.lang.Integer">
+    select count(*) from kms_student_record
+    where garden_id =1 and YEAR(create_date)='2021' and MONTH(create_date)='03'
+  </select>
+  <select id="siyue" resultType="java.lang.Integer">
+    select count(*) from kms_student_record
+    where garden_id =1 and YEAR(create_date)='2021' and MONTH(create_date)='04'
+  </select>
+  <select id="wuyue" resultType="java.lang.Integer">
+    select count(*) from kms_student_record
+    where garden_id =1 and YEAR(create_date)='2021' and MONTH(create_date)='05'
+  </select>
+  <select id="liuyue" resultType="java.lang.Integer">
+    select count(*) from kms_student_record
+    where garden_id =1 and YEAR(create_date)='2021' and MONTH(create_date)='06'
+  </select>
+  <select id="qiyue" resultType="java.lang.Integer">
+    select count(*) from kms_student_record
+    where garden_id =1 and YEAR(create_date)='2021' and MONTH(create_date)='07'
+  </select>
+  <select id="bayue" resultType="java.lang.Integer">
+    select count(*) from kms_student_record
+    where garden_id =1 and YEAR(create_date)='2021' and MONTH(create_date)='08'
+  </select>
+  <select id="jiuyue" resultType="java.lang.Integer">
+    select count(*) from kms_student_record
+    where garden_id =1 and YEAR(create_date)='2021' and MONTH(create_date)='09'
+  </select>
+  <select id="shiyue" resultType="java.lang.Integer">
+    select count(*) from kms_student_record
+    where garden_id =1 and YEAR(create_date)='2021' and MONTH(create_date)='10'
+  </select>
+  <select id="shiyiyue" resultType="java.lang.Integer">
+    select count(*) from kms_student_record
+    where garden_id =1 and YEAR(create_date)='2021' and MONTH(create_date)='11'
+  </select>
+  <select id="shieryue" resultType="java.lang.Integer">
+    select count(*) from kms_student_record
+    where garden_id =1 and YEAR(create_date)='2021' and MONTH(create_date)='12'
+  </select>
+  <resultMap id="FeeRm"  type="com.axjy.vo.generalCharge.FeeWithTo">
+    <id column="stuId" property="id"></id>
+    <result property="studentCode" column="studentCode"></result>
+    <result property="studentName" column="studentName"></result>
+    <result property="gender" column="gender"></result>
+    <result property="brithday" column="brithday"></result>
+    <result property="gradeName" column="gradeName"></result>
+    <result property="className" column="className"></result>
+    <result property="enterDate" column="enterDate"></result>
+    <result property="statusId" column="statusId"></result>
+    <result property="nowEat" column="nowEat"></result>
+    <result property="nowCare" column="nowCare"></result>
+    <result property="oldEat" column="oldEat"></result>
+    <result property="oldCare" column="oldCare"></result>
+    <result property="approvalEatCare.approvalState" column="approvalState"></result>
+    <result property="approvalEatCare.approvalChangeRemark" column="record"></result>
+    <result property="userName" column="userName"></result>
+    <result property="approvalEatCare.applyDatetime" column="applyDateTime"></result>
+    <result property="approvalEatCare.approvalPerson" column="person"></result>
+  </resultMap>
+
+  <select id="findAllFeeWith" resultMap="FeeRm">
+    select
+      sr.id stuId,
+      sr.student_code studentCode,
+      sr.student_name studentName,
+      sr.gender gender,
+      sr.brithday brithday,
+      g.gradeName gradeName,
+      c.className className,
+      c.id,
+      g.id,
+      kas.statusName statusName,
+      sr.enter_date enterDate,
+      sr.status_id statusId,
+      (select g.groove_name from kms_groove g where g.id = now_eat_id) nowEat,
+      (select g.groove_name from kms_groove g where g.id = now_care_id) nowCare,
+      (select g.groove_name from kms_groove g where g.id = old_eat_id) oldEat,
+      (select g.groove_name from kms_groove g where g.id = old_care_id) oldCare,
+      ksea.approval_state approvalState,
+      ksea.approval_change_remark record,
+      u.userName userName,
+      ksea.apply_datetime applyDateTime,
+      ksea.approval_person person
+    from kms_student_record sr
+           left join kms_stu_record_eat_care sre on sre.stu_id = sr.id
+           left join kms_approval_eat_care ksea on sr.id = ksea.approval_stu_id
+           left join kms_user u on u.id = ksea.approval_proposer
+           left join kms_grade g on sr.grade_id = g.id
+           left join kms_class c on sr.classroom_id = c.id
+           left join kms_attendance_state kas on sr.status_id = kas.id
+    <where>
+      <if test="gradeId!=null">
+        and g.id = #{gradeId}
+      </if>
+        <if test="classroomId!=null">
+          and c.id = #{classroomId}
+        </if>
+      <if test="studentName!=null">
+          and  sr.student_name like concat('%',#{studentName},'%')
+       </if>
+        <if test="statusId!=null">
+           and sr.status_id = #{statusId}
+        </if>
+        <if test="gardenId != null">
+           and  sr.garden_id = #{gardenId}
+        </if>
+        <if test="approvalState != null">
+           and ksea.approval_state = #{approvalState}
+        </if>
+        <if test="startDate!=null">
+           and ksea.apply_datetime >= #{startDate}
+        </if>
+        <if test="endDate!=null">
+           and ksea.apply_datetime &lt;=#{endDate}
+        </if>
+
+    </where>
+  </select>
+
+
+  <select id="findEr" resultType="com.axjy.pojo.child.KmsStudentRecord">
+        select * from kms_student_record as record
+        INNER JOIN kms_grade as grade on record.grade_id = grade.id
+        inner JOIN kms_class as class on class.id = record.classroom_id
+        INNER JOIN kms_attendance_state as state on state.id =  record.status_id
+
+      <where>
+        record.status_id= 1 or record.status_id=5
+          <if test="classroomId!=null">
+               record.classroom_id=#{classroomId}
+          </if>
+          <if test="studentName!=null and studentName!=''">
+            and  record.student_name =#{studentName}
+          </if>
+      </where>
+  </select>
+
+
+
+
+
+
+
+
+
+
+
+
+  <delete id="delete">
+    delete from kms_student_record where student_code=#{studentCode}
+  </delete>
+
+  <update id="update">
+    update kms_student_record set grade_id=#{codeVo.gradeId},classroom_id=#{codeVo.classroomId} where id in(
+    <foreach collection="codeVo.id" item="id" separator=",">
+      #{id}
+    </foreach>
+    )
+  </update>
+
+  <select id="queryFind" resultType="com.axjy.pojo.child.KmsStudentRecord">
+    select * from  kms_student_record where classroom_id = #{classroomId}
+  </select>
+
+
+
+
+  <select id="find" resultType="com.axjy.pojo.child.KmsStudentRecord">
+    select * from kms_student_record as record
+    INNER JOIN kms_grade as grade on record.grade_id = grade.id
+    inner JOIN kms_class as class on class.id = record.classroom_id
+    INNER JOIN kms_attendance_state as state on state.id =  record.status_id
+    inner join kms_garden as gar on record.garden_id = gar.id
+    <where>
+        <if test="gradeId!=null">
+            record.grade_id=#{gradeId}
+        </if>
+        <if test="classroomId!=null">
+         and   record.classroom_id=#{classroomId}
+        </if>
+        <if test="studentName!=null and studentName!=''">
+         and  record.student_name =#{studentName}
+        </if>
+        <if test="statusId!=null">
+        and  record.status_id =#{statusId}
+        </if>
+        <if test="gardenId!=null and gardenId>0">
+          and record.garden_id = #{gardenId}
+        </if>
+    </where>
+
+  </select>
+<!--  <resultMap id="kmsRm" type="com.axjy.pojo.child.KmsStudentRecord">
+    <id column="id" property="id"></id>
+    <association property="kmsGrade">
+      <id property="id" column="gradeId"></id>
+      <result property="gradename" column="gradeName"></result>
+    </association>
+
+  </resultMap>-->
+
+<!--
+  <resultMap id="Class" type="com.axjy.pojo.child.KmsStudentRecord">
+    <association property="kmsClass">
+      <id property="id" column="classId"></id>
+      <result property="id" column="className"></result>
+    </association>
+
+  </resultMap>
+-->
+
+
+
+
+
+  <resultMap id="BaseResultMap" type="com.axjy.pojo.child.KmsStudentRecord">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="student_code" jdbcType="VARCHAR" property="studentCode" />
+    <result column="student_name" jdbcType="VARCHAR" property="studentName" />
+    <result column="gender" jdbcType="INTEGER" property="gender" />
+    <result column="brithday" jdbcType="TIMESTAMP" property="brithday" />
+    <result column="grade_id" jdbcType="INTEGER" property="gradeId" />
+    <result column="classroom_id" jdbcType="BIGINT" property="classroomId" />
+    <result column="enter_date" jdbcType="TIMESTAMP" property="enterDate" />
+    <result column="leave_date" jdbcType="TIMESTAMP" property="leaveDate" />
+    <result column="status_id" jdbcType="INTEGER" property="statusId" />
+    <result column="recommender" jdbcType="VARCHAR" property="recommender" />
+    <result column="adviser_id" jdbcType="VARCHAR" property="adviserId" />
+    <result column="attendance_id" jdbcType="INTEGER" property="attendanceId" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, student_code, student_name, gender, brithday, grade_id, classroom_id, enter_date,
+    leave_date, status_id, recommender, adviser_id, attendance_id, address, create_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from kms_student_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from kms_student_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.child.KmsStudentRecord" useGeneratedKeys="true">
+    insert into kms_student_record (student_code, student_name, gender,
+                                    brithday, grade_id, classroom_id,
+                                    enter_date, leave_date, status_id,
+                                    recommender, adviser_id, attendance_id,
+                                    address, create_date)
+    values (#{studentCode,jdbcType=VARCHAR}, #{studentName,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER},
+            #{brithday,jdbcType=TIMESTAMP}, #{gradeId,jdbcType=INTEGER}, #{classroomId,jdbcType=BIGINT},
+            #{enterDate,jdbcType=TIMESTAMP}, #{leaveDate,jdbcType=TIMESTAMP}, #{statusId,jdbcType=INTEGER},
+            #{recommender,jdbcType=VARCHAR}, #{adviserId,jdbcType=VARCHAR}, #{attendanceId,jdbcType=INTEGER},
+            #{address,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.child.KmsStudentRecord" useGeneratedKeys="true">
+    insert into kms_student_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="studentCode != null">
+        student_code,
+      </if>
+      <if test="studentName != null">
+        student_name,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="brithday != null">
+        brithday,
+      </if>
+      <if test="gradeId != null">
+        grade_id,
+      </if>
+      <if test="classroomId != null">
+        classroom_id,
+      </if>
+      <if test="enterDate != null">
+        enter_date,
+      </if>
+      <if test="leaveDate != null">
+        leave_date,
+      </if>
+      <if test="statusId != null">
+        status_id,
+      </if>
+      <if test="recommender != null">
+        recommender,
+      </if>
+      <if test="adviserId != null">
+        adviser_id,
+      </if>
+      <if test="attendanceId != null">
+        attendance_id,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="gardenId !=null">
+        garden_id,
+      </if>
+        <if test="picture!=null">
+          picture,
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="studentCode != null">
+        #{studentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="studentName != null">
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="brithday != null">
+        #{brithday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gradeId != null">
+        #{gradeId,jdbcType=INTEGER},
+      </if>
+      <if test="classroomId != null">
+        #{classroomId,jdbcType=BIGINT},
+      </if>
+      <if test="enterDate != null">
+        #{enterDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leaveDate != null">
+        #{leaveDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statusId != null">
+        #{statusId,jdbcType=INTEGER},
+      </if>
+      <if test="recommender != null">
+        #{recommender,jdbcType=VARCHAR},
+      </if>
+      <if test="adviserId != null">
+        #{adviserId,jdbcType=VARCHAR},
+      </if>
+      <if test="attendanceId != null">
+        #{attendanceId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gardenId != null">
+        #{gardenId,jdbcType=BIGINT},
+      </if>
+      <if test="picture != null">
+        #{picture,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.axjy.pojo.child.KmsStudentRecord">
+    update kms_student_record
+    <set>
+      <if test="studentCode != null">
+        student_code = #{studentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="studentName != null">
+        student_name = #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="brithday != null">
+        brithday = #{brithday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gradeId != null">
+        grade_id = #{gradeId,jdbcType=INTEGER},
+      </if>
+      <if test="classroomId != null">
+        classroom_id = #{classroomId,jdbcType=BIGINT},
+      </if>
+      <if test="enterDate != null">
+        enter_date = #{enterDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leaveDate != null">
+        leave_date = #{leaveDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statusId != null">
+        status_id = #{statusId,jdbcType=INTEGER},
+      </if>
+      <if test="recommender != null">
+        recommender = #{recommender,jdbcType=VARCHAR},
+      </if>
+      <if test="adviserId != null">
+        adviser_id = #{adviserId,jdbcType=VARCHAR},
+      </if>
+      <if test="attendanceId != null">
+        attendance_id = #{attendanceId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.axjy.pojo.child.KmsStudentRecord">
+    update kms_student_record
+    set student_code = #{studentCode,jdbcType=VARCHAR},
+        student_name = #{studentName,jdbcType=VARCHAR},
+        gender = #{gender,jdbcType=INTEGER},
+        brithday = #{brithday,jdbcType=TIMESTAMP},
+        grade_id = #{gradeId,jdbcType=INTEGER},
+        classroom_id = #{classroomId,jdbcType=BIGINT},
+        enter_date = #{enterDate,jdbcType=TIMESTAMP},
+        leave_date = #{leaveDate,jdbcType=TIMESTAMP},
+        status_id = #{statusId,jdbcType=INTEGER},
+        recommender = #{recommender,jdbcType=VARCHAR},
+        adviser_id = #{adviserId,jdbcType=VARCHAR},
+        attendance_id = #{attendanceId,jdbcType=INTEGER},
+        address = #{address,jdbcType=VARCHAR},
+        create_date = #{createDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

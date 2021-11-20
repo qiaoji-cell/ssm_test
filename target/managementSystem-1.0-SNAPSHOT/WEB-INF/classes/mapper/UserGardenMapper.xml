@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axjy.mapper.sys.UserGardenMapper">
+
+  <select id="findGardenIdByUId" resultType="java.lang.Long">
+    select garden_id from kms_user_garden where user_id = #{uId}
+  </select>
+  <select id="countUserByGardenId" resultType="java.lang.Integer">
+    select count(0) from kms_user_garden where garden_id = #{gardenId}
+  </select>
+
+  <resultMap id="BaseResultMap" type="com.axjy.pojo.sys.UserGarden">
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="garden_id" jdbcType="BIGINT" property="gardenId" />
+  </resultMap>
+  <delete id="batchDel">
+    delete from kms_user_garden where user_id in
+    <foreach collection="garden.userIds" item="userId" open="(" separator="," close=")">
+      #{userId}
+    </foreach>
+  </delete>
+  <delete id="delete">
+    delete from kms_user_garden where  user_id = #{garden.userId}
+  </delete>
+  <insert id="insert" parameterType="com.axjy.pojo.sys.UserGarden">
+    insert into kms_user_garden (user_id, garden_id)
+    values (#{userId,jdbcType=BIGINT}, #{gardenId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.axjy.pojo.sys.UserGarden">
+    insert into kms_user_garden
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="gardenId != null">
+        garden_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="gardenId != null">
+        #{gardenId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+</mapper>

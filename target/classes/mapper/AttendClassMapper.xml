@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axjy.mapper.teach.AttendClassMapper">
+
+
+
+  <select id="find" resultType="com.axjy.pojo.teach.AttendClass">
+    select * from kms_attend_class as ac
+                    inner join kms_classModel as cm on ac.classModel_id = cm.id
+                    inner join kms_classroom  as cr on ac.classroom_id = cr.id
+                    inner join kms_user as us on ac.user_id = us.id
+                    where ac.classModel_id=#{classModeId}
+
+  </select>
+
+
+
+
+
+
+
+
+  <resultMap id="BaseResultMap" type="com.axjy.pojo.teach.AttendClass">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="classroom_id" jdbcType="BIGINT" property="classroomId" />
+    <result column="classModel_id" jdbcType="BIGINT" property="classmodelId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="hours" jdbcType="BIGINT" property="hours" />
+    <result column="expla_in" jdbcType="VARCHAR" property="explaIn" />
+    <result column="time_class" jdbcType="TIMESTAMP" property="timeClass" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, classroom_id, classModel_id, user_id, `hours`, expla_in, time_class
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from kms_attend_class
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from kms_attend_class
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.teach.AttendClass" useGeneratedKeys="true">
+    insert into kms_attend_class (classroom_id, classModel_id, user_id, 
+      `hours`, expla_in, time_class
+      )
+    values (#{classroomId,jdbcType=BIGINT}, #{classmodelId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
+      #{hours,jdbcType=BIGINT}, #{explaIn,jdbcType=VARCHAR}, #{timeClass,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.teach.AttendClass" useGeneratedKeys="true">
+    insert into kms_attend_class
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="classroomId != null">
+        classroom_id,
+      </if>
+      <if test="classmodelId != null">
+        classModel_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="hours != null">
+        `hours`,
+      </if>
+      <if test="explaIn != null">
+        expla_in,
+      </if>
+      <if test="timeClass != null">
+        time_class,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="classroomId != null">
+        #{classroomId,jdbcType=BIGINT},
+      </if>
+      <if test="classmodelId != null">
+        #{classmodelId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="hours != null">
+        #{hours,jdbcType=BIGINT},
+      </if>
+      <if test="explaIn != null">
+        #{explaIn,jdbcType=VARCHAR},
+      </if>
+      <if test="timeClass != null">
+        #{timeClass,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.axjy.pojo.teach.AttendClass">
+    update kms_attend_class
+    <set>
+      <if test="classroomId != null">
+        classroom_id = #{classroomId,jdbcType=BIGINT},
+      </if>
+      <if test="classmodelId != null">
+        classModel_id = #{classmodelId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="hours != null">
+        `hours` = #{hours,jdbcType=BIGINT},
+      </if>
+      <if test="explaIn != null">
+        expla_in = #{explaIn,jdbcType=VARCHAR},
+      </if>
+      <if test="timeClass != null">
+        time_class = #{timeClass,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.axjy.pojo.teach.AttendClass">
+    update kms_attend_class
+    set classroom_id = #{classroomId,jdbcType=BIGINT},
+      classModel_id = #{classmodelId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      `hours` = #{hours,jdbcType=BIGINT},
+      expla_in = #{explaIn,jdbcType=VARCHAR},
+      time_class = #{timeClass,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

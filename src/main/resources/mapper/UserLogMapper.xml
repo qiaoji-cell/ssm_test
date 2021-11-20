@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axjy.mapper.sys.UserLogMapper">
+
+
+  <resultMap id="userRm" type="com.axjy.pojo.sys.UserLog">
+    <id column="id" property="id"></id>
+    <result property="roleName" column="roleName"></result>
+    <result property="depName" column="depName"></result>
+    <result property="posName" column="posName"></result>
+    <result property="gardenName" column="gardenName"></result>
+    <result property="creation_date" column="creation_date"></result>
+    <result property="gardenName" column="gardenName"></result>
+    <result property="user_code" column="logUCode"></result>
+    <result property="garden_id" column="gardenId"></result>
+    <result property="address" column="logUAddress"></result>
+  </resultMap>
+
+  <select id="findAll" resultMap="userRm">
+    select distinct ul.user_code logUCode,ul.user_name,ul.ip,ul.address logUAddress,ul.login_date,
+                    u.*,d.dep_name depName,p.pos_name posName,
+    g.id gardenId,g.garden_name gardenName from kms_user_loginlog ul
+    left join kms_user u on ul.user_code = u.user_code
+    left join kms_user_role ur on u.id = ur.user_id
+    left join kms_dep d on u.depId = d.id
+    left join kms_pos p on p.id = u.posId
+    left join kms_user_garden ug on u.id = ug.user_id
+    left join kms_garden g on ug.garden_id = g.id
+    <where>
+      <if test="vo.userCode != null">
+           ul.user_code = #{vo.userCode}
+      </if>
+      <if test="vo.userName != null">
+        and ul.user_name like concat('%',#{vo.userName},'%')
+      </if>
+      <if test="vo.startTime!=null">
+        and ul.login_date >= #{vo.startTime}
+      </if>
+        <if test="vo.endTime!=null">
+          and ul.login_date &lt;= #{vo.endTime}
+        </if>
+    </where>
+
+  </select>
+
+  <select id="countTime" resultType="java.lang.Integer">
+    select count(0) from kms_user_loginlog where user_code=#{userCode}
+  </select>
+
+  <resultMap id="BaseResultMap" type="com.axjy.pojo.sys.UserLog">
+    <id column="id" jdbcType="BIGINT" property="logId" />
+    <result column="user_code" jdbcType="VARCHAR" property="userCode" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="login_date" jdbcType="TIMESTAMP" property="loginDate" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, user_code, user_name, ip, address, login_date, login_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from kms_user_loginlog
+    where id = #{logId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from kms_user_loginlog
+    where id = #{logId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="logId" parameterType="com.axjy.pojo.sys.UserLog" useGeneratedKeys="true">
+    insert into kms_user_loginlog (user_code, user_name, ip, 
+      address, login_date
+      )
+    values (#{userCode,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{loginDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="logId" parameterType="com.axjy.pojo.sys.UserLog" useGeneratedKeys="true">
+    insert into kms_user_loginlog
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userCode != null">
+        user_code,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="loginDate != null">
+        login_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userCode != null">
+        #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="loginDate != null">
+        #{loginDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.axjy.pojo.sys.UserLog">
+    update kms_user_loginlog
+    <set>
+      <if test="userCode != null">
+        user_code = #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="loginDate != null">
+        login_date = #{loginDate,jdbcType=TIMESTAMP},
+      </if>
+
+    </set>
+    where id = #{logId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.axjy.pojo.sys.UserLog">
+    update kms_user_loginlog
+    set user_code = #{userCode,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      login_date = #{loginDate,jdbcType=TIMESTAMP}
+    where id = #{logId,jdbcType=BIGINT}
+  </update>
+</mapper>

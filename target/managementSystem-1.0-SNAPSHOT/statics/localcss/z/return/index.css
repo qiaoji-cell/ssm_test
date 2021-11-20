@@ -1,0 +1,15 @@
+.layui-form-label{
+    width: auto;
+    text-align: right;
+    padding: 9px 10px;
+    width: 90px;
+}
+.layui-input-inline{
+    margin-bottom: 10px;
+}
+.layui-row{
+    margin-bottom: 10px;
+}
+.layui-collapse{
+    margin-top:10px;
+}

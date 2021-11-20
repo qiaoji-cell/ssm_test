@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axjy.mapper.teach.SubjectMapper">
+
+
+
+
+  <select id="find" resultType="com.axjy.pojo.teach.Subject">
+    select * from kms_subject where garden_id=1
+  </select>
+
+
+
+
+
+
+  <resultMap id="BaseResultMap" type="com.axjy.pojo.teach.Subject">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="gradeName" jdbcType="VARCHAR" property="gradename" />
+    <result column="garden_id" jdbcType="BIGINT" property="gardenId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, gradeName, garden_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from kms_subject
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from kms_subject
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.teach.Subject" useGeneratedKeys="true">
+    insert into kms_subject (gradeName, garden_id)
+    values (#{gradename,jdbcType=VARCHAR}, #{gardenId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.teach.Subject" useGeneratedKeys="true">
+    insert into kms_subject
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gradename != null">
+        gradeName,
+      </if>
+      <if test="gardenId != null">
+        garden_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gradename != null">
+        #{gradename,jdbcType=VARCHAR},
+      </if>
+      <if test="gardenId != null">
+        #{gardenId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.axjy.pojo.teach.Subject">
+    update kms_subject
+    <set>
+      <if test="gradename != null">
+        gradeName = #{gradename,jdbcType=VARCHAR},
+      </if>
+      <if test="gardenId != null">
+        garden_id = #{gardenId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.axjy.pojo.teach.Subject">
+    update kms_subject
+    set gradeName = #{gradename,jdbcType=VARCHAR},
+      garden_id = #{gardenId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axjy.mapper.child.StudentMatterMapper">
+  <select id="find" resultType="com.axjy.pojo.child.StudentMatter">
+    select * from kms_student_matter where student_code = #{studentCode}
+
+  </select>
+  <delete id="delete">
+    delete from kms_student_matter where student_code = #{studentCode}
+  </delete>
+
+
+  <resultMap id="BaseResultMap" type="com.axjy.pojo.child.StudentMatter">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="student_code" jdbcType="VARCHAR" property="studentCode" />
+    <result column="isOnly" jdbcType="INTEGER" property="isonly" />
+    <result column="household_type" jdbcType="VARCHAR" property="householdType" />
+    <result column="household_location" jdbcType="VARCHAR" property="householdLocation" />
+    <result column="birth_location" jdbcType="VARCHAR" property="birthLocation" />
+    <result column="native_place" jdbcType="VARCHAR" property="nativePlace" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="certificates_number" jdbcType="VARCHAR" property="certificatesNumber" />
+    <result column="health" jdbcType="VARCHAR" property="health" />
+    <result column="fear_things" jdbcType="VARCHAR" property="fearThings" />
+    <result column="Avoid" jdbcType="VARCHAR" property="avoid" />
+    <result column="allergy" jdbcType="VARCHAR" property="allergy" />
+    <result column="hobby" jdbcType="VARCHAR" property="hobby" />
+    <result column="special" jdbcType="VARCHAR" property="special" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, student_code, isOnly, household_type, household_location, birth_location, native_place, 
+    address, certificates_number, health, fear_things, Avoid, allergy, hobby, special, 
+    remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from kms_student_matter
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from kms_student_matter
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.child.StudentMatter" useGeneratedKeys="true">
+    insert into kms_student_matter (student_code, isOnly, household_type, 
+      household_location, birth_location, native_place, 
+      address, certificates_number, health, 
+      fear_things, Avoid, allergy, 
+      hobby, special, remarks
+      )
+    values (#{studentCode,jdbcType=VARCHAR}, #{isonly,jdbcType=INTEGER}, #{householdType,jdbcType=VARCHAR}, 
+      #{householdLocation,jdbcType=VARCHAR}, #{birthLocation,jdbcType=VARCHAR}, #{nativePlace,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{certificatesNumber,jdbcType=VARCHAR}, #{health,jdbcType=VARCHAR}, 
+      #{fearThings,jdbcType=VARCHAR}, #{avoid,jdbcType=VARCHAR}, #{allergy,jdbcType=VARCHAR}, 
+      #{hobby,jdbcType=VARCHAR}, #{special,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.child.StudentMatter" useGeneratedKeys="true">
+    insert into kms_student_matter
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="studentCode != null">
+        student_code,
+      </if>
+      <if test="isonly != null">
+        isOnly,
+      </if>
+      <if test="householdType != null">
+        household_type,
+      </if>
+      <if test="householdLocation != null">
+        household_location,
+      </if>
+      <if test="birthLocation != null">
+        birth_location,
+      </if>
+      <if test="nativePlace != null">
+        native_place,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="certificatesNumber != null">
+        certificates_number,
+      </if>
+      <if test="health != null">
+        health,
+      </if>
+      <if test="fearThings != null">
+        fear_things,
+      </if>
+      <if test="avoid != null">
+        Avoid,
+      </if>
+      <if test="allergy != null">
+        allergy,
+      </if>
+      <if test="hobby != null">
+        hobby,
+      </if>
+      <if test="special != null">
+        special,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="studentCode != null">
+        #{studentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isonly != null">
+        #{isonly,jdbcType=INTEGER},
+      </if>
+      <if test="householdType != null">
+        #{householdType,jdbcType=VARCHAR},
+      </if>
+      <if test="householdLocation != null">
+        #{householdLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="birthLocation != null">
+        #{birthLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="nativePlace != null">
+        #{nativePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="certificatesNumber != null">
+        #{certificatesNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="health != null">
+        #{health,jdbcType=VARCHAR},
+      </if>
+      <if test="fearThings != null">
+        #{fearThings,jdbcType=VARCHAR},
+      </if>
+      <if test="avoid != null">
+        #{avoid,jdbcType=VARCHAR},
+      </if>
+      <if test="allergy != null">
+        #{allergy,jdbcType=VARCHAR},
+      </if>
+      <if test="hobby != null">
+        #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="special != null">
+        #{special,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.axjy.pojo.child.StudentMatter">
+    update kms_student_matter
+    <set>
+      <if test="studentCode != null">
+        student_code = #{studentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isonly != null">
+        isOnly = #{isonly,jdbcType=INTEGER},
+      </if>
+      <if test="householdType != null">
+        household_type = #{householdType,jdbcType=VARCHAR},
+      </if>
+      <if test="householdLocation != null">
+        household_location = #{householdLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="birthLocation != null">
+        birth_location = #{birthLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="nativePlace != null">
+        native_place = #{nativePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="certificatesNumber != null">
+        certificates_number = #{certificatesNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="health != null">
+        health = #{health,jdbcType=VARCHAR},
+      </if>
+      <if test="fearThings != null">
+        fear_things = #{fearThings,jdbcType=VARCHAR},
+      </if>
+      <if test="avoid != null">
+        Avoid = #{avoid,jdbcType=VARCHAR},
+      </if>
+      <if test="allergy != null">
+        allergy = #{allergy,jdbcType=VARCHAR},
+      </if>
+      <if test="hobby != null">
+        hobby = #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="special != null">
+        special = #{special,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.axjy.pojo.child.StudentMatter">
+    update kms_student_matter
+    set student_code = #{studentCode,jdbcType=VARCHAR},
+      isOnly = #{isonly,jdbcType=INTEGER},
+      household_type = #{householdType,jdbcType=VARCHAR},
+      household_location = #{householdLocation,jdbcType=VARCHAR},
+      birth_location = #{birthLocation,jdbcType=VARCHAR},
+      native_place = #{nativePlace,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      certificates_number = #{certificatesNumber,jdbcType=VARCHAR},
+      health = #{health,jdbcType=VARCHAR},
+      fear_things = #{fearThings,jdbcType=VARCHAR},
+      Avoid = #{avoid,jdbcType=VARCHAR},
+      allergy = #{allergy,jdbcType=VARCHAR},
+      hobby = #{hobby,jdbcType=VARCHAR},
+      special = #{special,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

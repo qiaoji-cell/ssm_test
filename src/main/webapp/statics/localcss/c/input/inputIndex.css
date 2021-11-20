@@ -1,0 +1,11 @@
+.layui-form-label{
+    width: 90px;
+    text-align: right;
+    padding:9px 10px;
+}
+.layui-row{
+    margin-bottom: 10px;
+}
+.layui-collapse{
+    margin-top:10px;
+}

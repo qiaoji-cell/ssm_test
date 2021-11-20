@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axjy.mapper.generalCharge.StuRecordOtherMapper">
+  <select id="findAllNoByStuId" resultMap="grooveRm">
+    select c.costName costName,
+           c.id categoryId,
+           g.id gId,
+           g.groove_name grooveName,
+           g.cost_type costType,
+           g.univalence univalence,
+           g.univalence_type univalenceType,
+           g.alone alone
+    from kms_groove g
+            left join  kms_stu_record_other  ksro on g.id = ksro.groove_cost_id
+            left join kms_cost_category c on g.cost_category = c.id
+    where g.garden_id = 1 and g.cost_type = 3 and g.id not in (
+      select groove_cost_id from kms_stu_record_other where stu_id = #{stuId}
+    )
+  </select>
+  <resultMap id="grooveRm" type="Groove">
+    <id column="gId" property="id"></id>
+    <result property="grooveName" column="grooveName"></result>
+    <result property="costType" column="costType"></result>
+    <result property="univalence" column="univalence"></result>
+    <result property="univalenceType" column="univalenceType"></result>
+    <result property="alone" column="alone"></result>
+    <result property="category.id" column="categoryId"></result>
+    <result property="category.costname" column="costName"></result>
+  </resultMap>
+
+
+  <resultMap id="otherRm" type="StuRecordOther">
+    <id column="haveId" property="id"></id>
+    <result column="endDate" property="startDate"></result>
+    <result column="endDate" property="endDate"></result>
+    <association property="groove" javaType="Groove">
+      <id column="fId" property="id"></id>
+      <result property="category.costname" column="costName"></result>
+      <result property="grooveName" column="fName"></result>
+      <result property="costType" column="ftype"></result>
+      <result property="univalence" column="univalence"></result>
+      <result property="payType" column="payType"></result>
+      <result property="refund" column="refund"></result>
+      <result property="alone" column="alone"></result>
+    </association>
+  </resultMap>
+
+  <select id="findAllByStuId" resultMap="otherRm">
+    select ksro.id haveId,ksro.start_date startDate,ksro.end_date endDate,
+           c.costName costName,c.id categoryId,
+           g.id fId,
+           g.groove_name fName,
+           g.cost_type ftype,
+           g.univalence univalence,
+           g.univalence_type univalence_type,
+           g.pay_type payType,
+           g.refund refund,
+           g.alone alone
+    from kms_stu_record_other  ksro
+           left join kms_groove g on g.id = ksro.groove_cost_id
+           left join kms_cost_category c on g.cost_category = c.id
+    where stu_id =#{stuId}
+  </select>
+  <select id="findCostIdsByStuId" resultType="java.lang.Long">
+    select groove_cost_id from kms_stu_record_other where stu_id = #{stuId}
+  </select>
+  <insert id="insertRecord">
+    insert into kms_stu_record_other(stu_id,groove_cost_id,start_date,end_date) values
+    <foreach collection="costIds" item="id" separator=",">
+      (#{stuId},#{id},#{se.startDate},#{se.endDate})
+    </foreach>
+  </insert>
+  <delete id="batchDel" >
+    delete from kms_stu_record_other where stu_id = #{stuId} and groove_cost_id in
+    <foreach collection="costIds" item="costId" open="(" separator="," close=")">
+      #{costId}
+    </foreach>
+  </delete>
+
+  <resultMap id="BaseResultMap" type="com.axjy.pojo.generalCharge.StuRecordOther">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="stu_id" jdbcType="BIGINT" property="stuId" />
+    <result column="groove_cost_id" jdbcType="BIGINT" property="grooveCostId" />
+    <result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, stu_id, groove_cost_id, start_date, end_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from kms_stu_record_other
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from kms_stu_record_other
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.generalCharge.StuRecordOther" useGeneratedKeys="true">
+    insert into kms_stu_record_other (stu_id, groove_cost_id, start_date, 
+      end_date)
+    values (#{stuId,jdbcType=BIGINT}, #{grooveCostId,jdbcType=BIGINT}, #{startDate,jdbcType=TIMESTAMP}, 
+      #{endDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.axjy.pojo.generalCharge.StuRecordOther" useGeneratedKeys="true">
+    insert into kms_stu_record_other
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stuId != null">
+        stu_id,
+      </if>
+      <if test="grooveCostId != null">
+        groove_cost_id,
+      </if>
+      <if test="startDate != null">
+        start_date,
+      </if>
+      <if test="endDate != null">
+        end_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stuId != null">
+        #{stuId,jdbcType=BIGINT},
+      </if>
+      <if test="grooveCostId != null">
+        #{grooveCostId,jdbcType=BIGINT},
+      </if>
+      <if test="startDate != null">
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.axjy.pojo.generalCharge.StuRecordOther">
+    update kms_stu_record_other
+    <set>
+      <if test="stuId != null">
+        stu_id = #{stuId,jdbcType=BIGINT},
+      </if>
+      <if test="grooveCostId != null">
+        groove_cost_id = #{grooveCostId,jdbcType=BIGINT},
+      </if>
+      <if test="startDate != null">
+        start_date = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        end_date = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.axjy.pojo.generalCharge.StuRecordOther">
+    update kms_stu_record_other
+    set stu_id = #{stuId,jdbcType=BIGINT},
+      groove_cost_id = #{grooveCostId,jdbcType=BIGINT},
+      start_date = #{startDate,jdbcType=TIMESTAMP},
+      end_date = #{endDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
