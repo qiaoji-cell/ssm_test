@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="managementSystem:war" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e7c3f788-2149-4fb3-886b-467f53963cb0" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="mybatis-mapper" />
+        <option value="database" />
+        <option value="mybatis-config" />
+        <option value="logback" />
+        <option value="CSS File" />
+        <option value="Jsp File" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="JRebelWorkspace">
+    <option name="jrebelEnabledAutocompile" value="true" />
+  </component>
+  <component name="ProjectId" id="1yTRfVlvsumhcg7gU1JQbGANGnl" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.25707546" />
+    <property name="settings.editor.selected.configurable" value="editing.templates" />
+  </component>
+  <component name="RebelAgentSelection">
+    <selection>jr</selection>
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Joe\Desktop\中期管理系统\managementSystem\src\main\webapp\WEB-INF\jsp\sys\user" />
+      <recent name="C:\Users\Joe\Desktop\中期管理系统\managementSystem\src\main\resources\jasper" />
+      <recent name="C:\Users\Joe\Desktop\中期管理系统\managementSystem\src\main\webapp\WEB-INF\jsp\generalCharge\notice" />
+      <recent name="C:\Users\Joe\Desktop\中期管理系统\managementSystem\src\main\webapp\statics\images" />
+      <recent name="C:\Users\Joe\Desktop\中期管理系统\managementSystem\src\main\webapp\WEB-INF\jsp\leaveGarden" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Joe\Desktop\中期管理系统\managementSystem\src\main\webapp\WEB-INF\jsp\generalCharge\normal" />
+      <recent name="C:\Users\Joe\Desktop\中期管理系统\managementSystem\src\main\webapp\WEB-INF\jsp\attendance" />
+      <recent name="C:\Users\Joe\Desktop\中期管理系统\managementSystem\src\main\webapp\WEB-INF\jsp\recruit\input" />
+      <recent name="C:\Users\Joe\Desktop\中期管理系统\managementSystem\src\main\webapp\WEB-INF\jsp\recruit\count" />
+      <recent name="C:\Users\Joe\Desktop\中期管理系统\managementSystem\src\main\resources\mapper" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.axjy.controller.sys" />
+      <recent name="com.axjy.controller.leaveGarden" />
+      <recent name="com.axjy.service.impl.leaveGarden" />
+      <recent name="com.axjy.service.leaveGarden" />
+      <recent name="com.axjy.mapper.leaveGarden" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Maven.managementSystem [jetty:run]">
+    <configuration name="MonthTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.axjy.test.MonthTest" />
+      <module name="managementSystem" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.axjy.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NormalTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.axjy.test.NormalTest" />
+      <module name="managementSystem" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.axjy.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="YearMonthTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.axjy.test.YearMonthTest" />
+      <module name="managementSystem" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.axjy.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NormalTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="managementSystem" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.axjy.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.axjy.test" />
+      <option name="MAIN_CLASS_NAME" value="com.axjy.test.NormalTest" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="managementSystem [jetty:run]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="jetty:run" />
+              </list>
+            </option>
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Maven.managementSystem [jetty:run]" />
+        <item itemvalue="Application.MonthTest" />
+        <item itemvalue="Application.YearMonthTest" />
+        <item itemvalue="JUnit.NormalTest.test" />
+        <item itemvalue="Application.NormalTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e7c3f788-2149-4fb3-886b-467f53963cb0" name="Changes" comment="" />
+      <created>1632273697146</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1632273697146</updated>
+      <workItem from="1632273699257" duration="10373000" />
+      <workItem from="1632618407759" duration="13826000" />
+      <workItem from="1632649237663" duration="28000" />
+      <workItem from="1632654317113" duration="1929000" />
+      <workItem from="1632747017585" duration="1186000" />
+      <workItem from="1632783668620" duration="7845000" />
+      <workItem from="1632874629975" duration="5586000" />
+      <workItem from="1632924402561" duration="2401000" />
+      <workItem from="1633906968072" duration="352000" />
+      <workItem from="1633931766538" duration="16839000" />
+      <workItem from="1633992400883" duration="1404000" />
+      <workItem from="1633996539351" duration="14908000" />
+      <workItem from="1634020122256" duration="9816000" />
+      <workItem from="1634031342243" duration="1732000" />
+      <workItem from="1634043540754" duration="6466000" />
+      <workItem from="1634076634781" duration="2238000" />
+      <workItem from="1634083086251" duration="20505000" />
+      <workItem from="1634129692649" duration="4538000" />
+      <workItem from="1634175463026" duration="26978000" />
+      <workItem from="1634249633514" duration="4488000" />
+      <workItem from="1634257387402" duration="12255000" />
+      <workItem from="1634336890042" duration="25409000" />
+      <workItem from="1634431884856" duration="16195000" />
+      <workItem from="1634475444352" duration="8293000" />
+      <workItem from="1634515870878" duration="31080000" />
+      <workItem from="1634555223148" duration="2589000" />
+      <workItem from="1634564985812" duration="7466000" />
+      <workItem from="1634602829757" duration="26154000" />
+      <workItem from="1634645357534" duration="1369000" />
+      <workItem from="1634648445593" duration="7094000" />
+      <workItem from="1634688613575" duration="28930000" />
+      <workItem from="1634735680734" duration="11169000" />
+      <workItem from="1634775878645" duration="21736000" />
+      <workItem from="1634809551953" duration="4548000" />
+      <workItem from="1634817489148" duration="11768000" />
+      <workItem from="1634861535266" duration="25547000" />
+      <workItem from="1634894746457" duration="6649000" />
+      <workItem from="1634909657953" duration="4933000" />
+      <workItem from="1634948853948" duration="22093000" />
+      <workItem from="1634994970067" duration="7108000" />
+      <workItem from="1635056504249" duration="15562000" />
+      <workItem from="1635121303294" duration="20880000" />
+      <workItem from="1635148092102" duration="7955000" />
+      <workItem from="1635199421233" duration="4664000" />
+      <workItem from="1635207836073" duration="32636000" />
+      <workItem from="1635254014864" duration="1795000" />
+      <workItem from="1635294006121" duration="1950000" />
+      <workItem from="1635296003411" duration="20604000" />
+      <workItem from="1635342309928" duration="117000" />
+      <workItem from="1635342447378" duration="2304000" />
+      <workItem from="1635347620996" duration="3109000" />
+      <workItem from="1635350780085" duration="365000" />
+      <workItem from="1635373070137" duration="1362000" />
+      <workItem from="1635379265197" duration="6529000" />
+      <workItem from="1635400642721" duration="218000" />
+      <workItem from="1635400976049" duration="17841000" />
+      <workItem from="1635426646780" duration="3714000" />
+      <workItem from="1635461192519" duration="2091000" />
+      <workItem from="1635466642137" duration="1172000" />
+      <workItem from="1635468191376" duration="12801000" />
+      <workItem from="1635487098557" duration="13696000" />
+      <workItem from="1635514440951" duration="3402000" />
+      <workItem from="1635552671947" duration="145000" />
+      <workItem from="1635552835965" duration="7927000" />
+      <workItem from="1635579869181" duration="11544000" />
+      <workItem from="1635631893858" duration="29537000" />
+      <workItem from="1635685002545" duration="8051000" />
+      <workItem from="1635721512105" duration="615000" />
+      <workItem from="1635726149236" duration="32346000" />
+      <workItem from="1635774529622" duration="6497000" />
+      <workItem from="1635811100730" duration="15779000" />
+      <workItem from="1635832414709" duration="17093000" />
+      <workItem from="1635858397256" duration="3642000" />
+      <workItem from="1635898764796" duration="25026000" />
+      <workItem from="1635947382417" duration="12174000" />
+      <workItem from="1635984461178" duration="27204000" />
+      <workItem from="1636058393420" duration="6086000" />
+      <workItem from="1636079136398" duration="18982000" />
+      <workItem from="1636120055876" duration="26630000" />
+      <workItem from="1636159608763" duration="15307000" />
+      <workItem from="1636185607893" duration="2580000" />
+      <workItem from="1636682809632" duration="1691000" />
+      <workItem from="1636789962982" duration="1851000" />
+      <workItem from="1636792194613" duration="1445000" />
+      <workItem from="1636801235791" duration="680000" />
+      <workItem from="1636807522759" duration="2718000" />
+      <workItem from="1636967770664" duration="3806000" />
+      <workItem from="1636972989102" duration="1737000" />
+      <workItem from="1637050655476" duration="711000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="org.apache.ibatis.binding.BindingException" package="org.apache.ibatis.binding" />
+          <option name="timeStamp" value="5" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="org.apache.ibatis.type.TypeException" package="org.apache.ibatis.type" />
+          <option name="timeStamp" value="7" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
